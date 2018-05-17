@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PasswordManager;
+using PasswordBox;
 using Windows.UI.Xaml.Media.Imaging;
-using PasswordManager.Model;
+using PasswordBox.Model;
 
-namespace PasswordManager.ViewModel
+namespace PasswordBox.ViewModel
 {
     public class PWItemViewModel
     {

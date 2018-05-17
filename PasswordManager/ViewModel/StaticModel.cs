@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PasswordManager.ViewModel
+namespace PasswordBox.ViewModel
 {
     public class StaticModel
     {

@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using PasswordManager;
-namespace PasswordManager
+using PasswordBox;
+namespace PasswordBox
 {
     public class MenuItems
     {
