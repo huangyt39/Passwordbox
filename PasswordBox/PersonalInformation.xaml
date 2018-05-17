@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <RelativePanel Grid.ColumnSpan="2" BorderThickness="0,0,0,1" BorderBrush="Black" Height="40" >
-            <Image Grid.ColumnSpan="2" Source="Assets/message.png" Height="40"/>
+            <Image Grid.ColumnSpan="2" Source="Assets/information.png" Height="40"/>
 
         </RelativePanel>
         <Grid Grid.Row="2">

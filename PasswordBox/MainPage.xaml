@@ -122,12 +122,12 @@
         </ScrollViewer>
 
         <RelativePanel Name="BottomButtons" VerticalAlignment="Bottom" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <RelativePanel Height="40" Visibility="Collapsed" x:Name="RelativeNavigation" RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="LightGray">
-                <Button x:Name="ButtonHome"  Height="40" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;" RelativePanel.AlignLeftWithPanel="True"/>
-                <Button x:Name="ButtonMessage" Height="40" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" RelativePanel.RightOf="ButtonHome"/>
-                <Button x:Name="ButtonFind" Height="40" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE13D;" RelativePanel.RightOf="ButtonMessage"/>
-                <Button x:Name="ButtonMe" Height="40" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE119;" RelativePanel.RightOf="ButtonFind"/>
-                <Button x:Name="ButtonAdd" Height="40" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE192;" Background="Orange" RelativePanel.RightOf="ButtonMe"/>
+            <RelativePanel Height="50" Visibility="Collapsed" x:Name="RelativeNavigation" RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="LightGray">
+                <Button x:Name="ButtonHome"  Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;" RelativePanel.AlignLeftWithPanel="True"/>
+                <Button x:Name="ButtonAdd" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" RelativePanel.RightOf="ButtonHome"/>
+                <Button x:Name="ButtonMessage" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE13D;" RelativePanel.RightOf="ButtonAdd"/>
+                <Button x:Name="ButtonShare" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE119;" RelativePanel.RightOf="ButtonMessage"/>
+                <Button x:Name="ButtonKey" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE192;" RelativePanel.RightOf="ButtonShare"/>
             </RelativePanel>
             <Grid x:Name="GridContent"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.RightOf="RelativeNavigation" RelativePanel.AlignBottomWith="RelativeNavigation">
             </Grid>

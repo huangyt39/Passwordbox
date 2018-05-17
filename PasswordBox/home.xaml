@@ -11,13 +11,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <RelativePanel BorderThickness="0,0,0,1" BorderBrush="Black" Height="40" Width="435" VerticalAlignment="Top" HorizontalAlignment="Left"> 
         <Image Source="Assets/HOME.png" Height="40"/>
         </RelativePanel>
-        <GridView Grid.Row="2" IsItemClickEnabled="True" 
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+            <TextBox Height="30" Width="200"></TextBox>
+            <Button FontFamily="Segoe MDL2 Assets" Content="&#xE71E;" FontSize="20" Width="40" Height="32" Background="White"></Button>
+        </StackPanel>
+        <GridView Grid.Row="3" IsItemClickEnabled="True" 
               ItemsSource ="{x:Bind ViewModel.AllItems}"  AutomationProperties.IsRequiredForForm="True">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType = "me:PasswordItem">
@@ -30,28 +35,5 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <!-- <ItemsControl Grid.Row="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VariableSizedWrapGrid Orientation="Horizontal" MaxWidth="600" ></VariableSizedWrapGrid>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            
-            <ItemsControl.Items>
-              
-                <Rectangle Height="100" Width="100" Fill="Blue" Margin="5"/>
-                <Rectangle Height="100" Width="100" Fill="Blue"/>
-                <Rectangle Height="100" Width="100" Fill="Blue"/>
-                <Rectangle Height="100" Width="100" Fill="Blue"/>
-                <Rectangle Height="100" Width="100" Fill="Blue"/>
-                <Rectangle Height="100" Width="100" />
-
-                <Rectangle Height="100" Width="100" />
-                <Rectangle Height="100" Width="100" />
-                <Rectangle Height="100" Width="100" />
-                <Rectangle Height="100" Width="100" />
-            </ItemsControl.Items>
-                    
-        </ItemsControl> -->
     </Grid>
 </Page>

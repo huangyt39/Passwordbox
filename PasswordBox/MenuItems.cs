@@ -43,10 +43,10 @@ namespace PasswordBox
                 new NavMenuItem()
                 {
                     FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                    Icon = "\xE715",
+                    Icon = "\xE72D",
                     Label = "分享",
                     Selected = Visibility.Collapsed,
-                    DestPage = typeof(detail)
+                    DestPage = null
                 }
 
             });
