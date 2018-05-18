@@ -12,7 +12,7 @@ namespace PasswordBox.Model
     public class PasswordItem : INotifyPropertyChanged
     {
         private string title;
-        private BitmapImage img;
+        private byte[] img;
 
         public string Title
         {
@@ -30,7 +30,7 @@ namespace PasswordBox.Model
                 }
             }
         }
-        public BitmapImage Img
+        public byte[] Img
         {
             get
             {
@@ -59,7 +59,7 @@ namespace PasswordBox.Model
         }
         public PasswordItem(string title_, BitmapImage image)
         {
-            this.Img = image;
+            // this.Img = image;
             this.Title = title_;
         }
     }

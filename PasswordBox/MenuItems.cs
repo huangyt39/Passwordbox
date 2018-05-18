@@ -46,7 +46,7 @@ namespace PasswordBox
                     Icon = "\xE72D",
                     Label = "分享",
                     Selected = Visibility.Collapsed,
-                    DestPage = null
+                    DestPage = typeof(detail)
                 }
 
             });
