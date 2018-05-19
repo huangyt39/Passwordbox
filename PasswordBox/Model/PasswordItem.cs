@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,28 @@ namespace PasswordBox.Model
     {
         private string title;
         private byte[] img;
+        private int id;
+
+        /// <summary>
+        /// 数据库自动赋值
+        /// </summary>
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        {
+            get
+            {
+                return this.id;
+            }
+
+            set
+            {
+                if (value != this.id)
+                {
+                    this.id = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public string Title
         {
@@ -47,20 +70,24 @@ namespace PasswordBox.Model
             }
         }
 
+        /// <summary>
+        /// 数据库会用到
+        /// </summary>
+        public PasswordItem() { }
+
+        public PasswordItem(string _title, byte[] _img)
+        {
+            // this.Img = image;
+            this.Title = _title;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         }
-        public PasswordItem(string title_, BitmapImage image)
-        {
-            // this.Img = image;
-            this.Title = title_;
-        }
+
     }
 }
