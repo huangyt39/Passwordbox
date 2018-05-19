@@ -17,13 +17,13 @@ namespace PasswordBox.ViewModel
         public ObservableCollection<PasswordItem> AllItems { get { return this.allItems; } }
         public PWItemViewModel()
         {
-            BitmapImage NewImage = new BitmapImage(new Uri("ms-appx:///Assets/cat.png", UriKind.Absolute));
-            this.allItems.Add(new PasswordItem("Just have a try", NewImage));
-            this.allItems.Add(new PasswordItem("Just have a try", NewImage));
-            this.allItems.Add(new PasswordItem("Just have a try", NewImage));
-            this.allItems.Add(new PasswordItem("Just have a try", NewImage));
-            this.allItems.Add(new PasswordItem("Just have a try", NewImage));
-            this.allItems.Add(new PasswordItem("Just have a try", NewImage));
+            //BitmapImage NewImage = new BitmapImage(new Uri("ms-appx:///Assets/cat.png", UriKind.Absolute));
+            //this.allItems.Add(new PasswordItem("Just have a try"));
+            //this.allItems.Add(new PasswordItem("Just have a try"));
+            //this.allItems.Add(new PasswordItem("Just have a try"));
+            //this.allItems.Add(new PasswordItem("Just have a try"));
+            //this.allItems.Add(new PasswordItem("Just have a try"));
+            //this.allItems.Add(new PasswordItem("Just have a try"));
 
         }
     }

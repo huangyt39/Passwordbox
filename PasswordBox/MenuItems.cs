@@ -19,7 +19,7 @@ namespace PasswordBox
                     Icon = "\xE10F",
                     Label = "主页",
                     Selected = Visibility.Visible,
-                    DestPage = typeof(home)
+                    DestPage = typeof(Home)
                 },
 
                 new NavMenuItem()
