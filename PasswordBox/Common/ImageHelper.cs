@@ -91,19 +91,5 @@ namespace PasswordBox.Common
             }
             return bitmap;
         }
-
-        /// <summary>
-        /// 将图片存起来
-        /// </summary>
-        /// <param name="pixels">图片bytes</param>
-        /// <param name="name">文件名称</param>
-        /// <returns></returns>
-        public static async Task<StorageFile> AsStorageFile(byte[] pixels, string name)
-        {
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            StorageFile img = await folder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteBytesAsync(img, pixels);
-            return img;
-        }
     }
 }
