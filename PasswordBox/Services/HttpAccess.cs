@@ -14,7 +14,7 @@ namespace PasswordBox.Services
     class HttpAccess
     {
         /// <summary>
-        /// 检查url是否合法，注意因带有http/https
+        /// 检查url是否合法，注意要带有http/https，可直接全选复制浏览器地址栏的地址
         /// </summary>
         /// <param name="url">url</param>
         /// <returns></returns>
