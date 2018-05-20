@@ -4,6 +4,6 @@
 - [x] SQLite
 - [x] Crypt
 - [ ] MVVM
-- [ ] Http Access
+- [x] Http Access
 - [ ] Tile
 - [ ] Page Logic
