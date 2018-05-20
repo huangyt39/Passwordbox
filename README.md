@@ -2,7 +2,7 @@
 
 - [x] Adaptive UI
 - [x] SQLite
-- [x] Crypt
+- [x] Crypto
 - [ ] MVVM
 - [x] Http Access
 - [ ] Tile
