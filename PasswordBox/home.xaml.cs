@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using PasswordBox;
 using PasswordBox.ViewModel;
 using PasswordBox.Model;
-using PasswordBox.Services;
+using PasswordBox.Common;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
