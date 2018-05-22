@@ -3,7 +3,7 @@
 - [x] Adaptive UI
 - [x] SQLite
 - [x] Crypto
-- [ ] MVVM
+- [×] MVVM
 - [x] Http Access
 - [ ] Tile
 - [ ] Page Logic

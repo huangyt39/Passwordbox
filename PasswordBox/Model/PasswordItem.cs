@@ -6,21 +6,23 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace PasswordBox.Model
 {
     public class PasswordItem : INotifyPropertyChanged
     {
+
         private string title;
-        private byte[] img;
-        private int id;
+        private ImageSource img;
+        private string id;
 
         /// <summary>
         /// 数据库自动赋值
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int Id
+        public string Id
         {
             get
             {
@@ -32,7 +34,7 @@ namespace PasswordBox.Model
                 if (value != this.id)
                 {
                     this.id = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("id");
                 }
             }
         }
@@ -49,11 +51,11 @@ namespace PasswordBox.Model
                 if (value != this.title)
                 {
                     this.title = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("title");
                 }
             }
         }
-        public byte[] Img
+        public ImageSource Img
         {
             get
             {
@@ -65,7 +67,7 @@ namespace PasswordBox.Model
                 if (value != this.img)
                 {
                     this.img = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("img");
                 }
             }
         }
@@ -75,9 +77,10 @@ namespace PasswordBox.Model
         /// </summary>
         public PasswordItem() { }
 
-        public PasswordItem(string _title, byte[] _img)
+        public PasswordItem(string _title, ImageSource _img)
         {
-            // this.Img = image;
+            this.id = Guid.NewGuid().ToString();
+            this.Img = _img;
             this.Title = _title;
         }
 
