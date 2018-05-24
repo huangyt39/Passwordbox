@@ -23,23 +23,26 @@ namespace PasswordBox.ViewModel
             this.selectedItem = null;
             //测试用例
             BitmapImage NewImage = new BitmapImage(new Uri("ms-appx:///Assets/cat.png", UriKind.Absolute));
-            this.allItems.Add(new PasswordItem("Item1", NewImage));
-            this.allItems.Add(new PasswordItem("Item2", NewImage));
-            this.allItems.Add(new PasswordItem("Item3", NewImage));
+            this.allItems.Add(new PasswordItem("Title1", NewImage, "Url1", "Account1", "Password1"));
+            this.allItems.Add(new PasswordItem("Title2", NewImage, "Url2", "Account2", "Password2"));
+            this.allItems.Add(new PasswordItem("Title3", NewImage, "Url3", "Account3", "Password3"));
 
         }
 
-        public void AddPasswordItem(string title, ImageSource img)
+        public void AddPasswordItem(string title, ImageSource img, string urlstr, string account, string password)
         {
-            this.allItems.Add(new PasswordItem(title, img));
+            this.allItems.Add(new PasswordItem(title, img, urlstr, account, password));
         }
 
-        public void UpdatePasswordItem(string title, ImageSource img)
+        public void UpdatePasswordItem(string title, ImageSource img, string urlstr, string account, string password)
         {
             if (this.selectedItem != null)
             {
                 this.selectedItem.Title = title;
                 this.selectedItem.Img = img;
+                this.selectedItem.Urlstr = urlstr;
+                this.selectedItem.Account = account;
+                this.selectedItem.Password = password;
                 this.selectedItem = null;
             }
         }

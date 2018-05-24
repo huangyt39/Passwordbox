@@ -17,11 +17,62 @@ namespace PasswordBox.Model
         private string title;
         private ImageSource img;
         private string id;
+        private string urlstr;
+        private string account;
+        private string password;
 
         /// <summary>
         /// 数据库自动赋值
         /// </summary>
         [PrimaryKey, AutoIncrement]
+        public string Password
+        {
+            get
+            {
+                return this.password;
+            }
+            set
+            {
+                if (value != this.password)
+                {
+                    this.password = value; ;
+                    NotifyPropertyChanged("password");
+                }
+            }
+        }
+
+        public string Account
+        {
+            get
+            {
+                return this.account;
+            }
+            set
+            {
+                if (value != this.account)
+                {
+                    this.account = value; ;
+                    NotifyPropertyChanged("account");
+                }
+            }
+        }
+
+        public string Urlstr
+        {
+            get
+            {
+                return this.urlstr;
+            }
+            set
+            {
+                if(value != this.urlstr)
+                {
+                    this.urlstr = value;
+                    NotifyPropertyChanged("urlstr");
+                }
+            }
+        }
+
         public string Id
         {
             get
@@ -77,11 +128,14 @@ namespace PasswordBox.Model
         /// </summary>
         public PasswordItem() { }
 
-        public PasswordItem(string _title, ImageSource _img)
+        public PasswordItem(string _title, ImageSource _img, string _urlstr, string _account, string _password)
         {
             this.id = Guid.NewGuid().ToString();
             this.Img = _img;
             this.Title = _title;
+            this.urlstr = _urlstr;
+            this.account = _account;
+            this.password = _password;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
