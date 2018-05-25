@@ -20,21 +20,27 @@ namespace PasswordBox.ViewModel
 
         public PWItemViewModel()
         {
+            List<PasswordItem> itemList = DB.GetAllItems();
+            for (int i = 0;i < itemList.Count;i ++)
+            {
+                this.allItems.Add(itemList.ElementAt(i));
+            }
             this.selectedItem = null;
             //测试用例
-            BitmapImage NewImage = new BitmapImage(new Uri("ms-appx:///Assets/cat.png", UriKind.Absolute));
+            /*BitmapImage NewImage = new BitmapImage(new Uri("ms-appx:///Assets/cat.png", UriKind.Absolute));
             this.allItems.Add(new PasswordItem("Title1", NewImage, "Url1", "Account1", "Password1"));
             this.allItems.Add(new PasswordItem("Title2", NewImage, "Url2", "Account2", "Password2"));
-            this.allItems.Add(new PasswordItem("Title3", NewImage, "Url3", "Account3", "Password3"));
-
+            this.allItems.Add(new PasswordItem("Title3", NewImage, "Url3", "Account3", "Password3"));*/
         }
 
-        public void AddPasswordItem(string title, ImageSource img, string urlstr, string account, string password)
+        public void AddPasswordItem(string title, Byte[] img, string urlstr, string account, string password)
         {
-            this.allItems.Add(new PasswordItem(title, img, urlstr, account, password));
+            PasswordItem newItem = new PasswordItem(title, img, urlstr, account, password);
+            this.allItems.Add(newItem);
+            DB.Add(newItem);
         }
 
-        public void UpdatePasswordItem(string title, ImageSource img, string urlstr, string account, string password)
+        public void UpdatePasswordItem(string title, Byte[] img, string urlstr, string account, string password)
         {
             if (this.selectedItem != null)
             {
@@ -45,12 +51,14 @@ namespace PasswordBox.ViewModel
                 this.selectedItem.Password = password;
                 this.selectedItem = null;
             }
+            DB.Update(this.selectedItem);
         }
 
         public void DeletePasswordItem()
         {
             if(this.selectedItem != null)
             {
+                DB.Delete(this.selectedItem);
                 this.allItems.Remove(this.selectedItem);
             }
         }

@@ -15,7 +15,7 @@ namespace PasswordBox.Model
     {
 
         private string title;
-        private ImageSource img;
+        private Byte[] img;
         private string id;
         private string urlstr;
         private string account;
@@ -106,7 +106,7 @@ namespace PasswordBox.Model
                 }
             }
         }
-        public ImageSource Img
+        public Byte[] Img
         {
             get
             {
@@ -128,7 +128,7 @@ namespace PasswordBox.Model
         /// </summary>
         public PasswordItem() { }
 
-        public PasswordItem(string _title, ImageSource _img, string _urlstr, string _account, string _password)
+        public PasswordItem(string _title, Byte[] _img, string _urlstr, string _account, string _password)
         {
             this.id = Guid.NewGuid().ToString();
             this.Img = _img;
