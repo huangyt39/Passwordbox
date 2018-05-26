@@ -17,7 +17,9 @@ namespace PasswordBox.Model
             get
             {
                 string path = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.sqlite");
-                return new SQLiteConnection(new SQLitePlatformWinRT(), path);
+                var conn = new SQLiteConnection(new SQLitePlatformWinRT(), path);
+                conn.CreateTable<PasswordItem>();
+                return conn;
             }
         }
 
@@ -25,7 +27,6 @@ namespace PasswordBox.Model
         {
             using (var conn = Conn)
             {
-                var table = conn.CreateTable<PasswordItem>();
                 conn.Insert(item);
             }
         }

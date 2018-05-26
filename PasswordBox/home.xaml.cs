@@ -39,7 +39,7 @@ namespace PasswordBox
 
         //public async void Test()
         //{
-        //    //var items = DB.GetAllItems();
+        //    var items = DB.GetAllItems();
         //    //items[0].Title = "1";
         //    //DB.Delete(items[0]);
         //    //if (Crypto.Decrypt(Crypto.Encrypt("123")) != "123" || !Crypto.TestEqual(Crypto.Hash("123"), "123"))
