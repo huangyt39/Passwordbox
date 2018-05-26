@@ -128,9 +128,9 @@ namespace PasswordBox.Model
         /// </summary>
         public PasswordItem() { }
 
-        public PasswordItem(string _title, Byte[] _img, string _urlstr, string _account, string _password)
+        public PasswordItem(string _id, string _title, Byte[] _img, string _urlstr, string _account, string _password)
         {
-            this.id = Guid.NewGuid().ToString();
+            this.id = _id;
             this.Img = _img;
             this.Title = _title;
             this.urlstr = _urlstr;
