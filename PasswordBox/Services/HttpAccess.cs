@@ -14,15 +14,16 @@ namespace PasswordBox.Services
     class HttpAccess
     {
         /// <summary>
-        /// 检查url是否合法，注意要带有http/https，可直接全选复制浏览器地址栏的地址
+        /// 检查url是否合法
         /// </summary>
         /// <param name="url">url</param>
         /// <returns></returns>
         public static bool CheckURL(string url)
         {
             string urlReg = @"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$";
-            Regex reg = new Regex(urlReg);
-            return reg.IsMatch(url);
+            string hostReg = @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+            Regex reg1 = new Regex(urlReg), reg2 = new Regex(hostReg);
+            return reg1.IsMatch(url) || reg2.IsMatch(url);
         }
 
         /// <summary>
