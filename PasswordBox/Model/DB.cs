@@ -47,13 +47,22 @@ namespace PasswordBox.Model
             }
         }
 
+        public static List<PasswordItem> Query(string qs)
+        {
+            List<PasswordItem> items;
+            using (var conn = Conn)
+            {
+                items = conn.Table<PasswordItem>().Where(v => (v.Title.Contains(qs) || v.Urlstr.Contains(qs))).ToList();
+            }
+            return items;
+        }
+
         public static List<PasswordItem> GetAllItems()
         {
             List<PasswordItem> items;
             using (var conn = Conn)
             {
-                items = (from p in conn.Table<PasswordItem>()
-                         select p).ToList();
+                items = conn.Table<PasswordItem>().ToList();
             }
             return items;
         }
