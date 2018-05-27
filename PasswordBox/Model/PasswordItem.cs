@@ -16,15 +16,11 @@ namespace PasswordBox.Model
 
         private string title;
         private Byte[] img;
-        private string id;
+        private int id;
         private string urlstr;
         private string account;
         private string password;
 
-        /// <summary>
-        /// 数据库自动赋值
-        /// </summary>
-        [PrimaryKey, AutoIncrement]
         public string Password
         {
             get
@@ -73,7 +69,12 @@ namespace PasswordBox.Model
             }
         }
 
-        public string Id
+
+        /// <summary>
+        /// 数据库自动赋值
+        /// </summary>
+        [PrimaryKey, AutoIncrement]
+        public int Id
         {
             get
             {
@@ -130,7 +131,6 @@ namespace PasswordBox.Model
 
         public PasswordItem(string _title, Byte[] _img, string _urlstr, string _account, string _password)
         {
-            this.id = Guid.NewGuid().ToString();
             this.Img = _img;
             this.Title = _title;
             this.urlstr = _urlstr;

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<tile>
+  <visual ShortName="PasswordBox">
+    <binding template="TileSmall">
+      <image src="Assets\cat.png" placement="background"/>
+    </binding>
+    
+    <binding template="TileMedium">
+      <image src="Assets\cat.png" placement="background"/>
+      <group>
+        <subgroup>
+          <text hint-align="bottom" hint-style="body">用户名</text>
+        </subgroup>
+      </group>
+    </binding>
+
+    <binding template="TileWide">
+      <image src="Assets\cat.png" placement="background"/>
+      <group>
+        <subgroup>
+          <text hint-align="center" hint-style="body">用户名</text>
+        </subgroup>
+      </group>
+    </binding>
+    
+  </visual>
+</tile>

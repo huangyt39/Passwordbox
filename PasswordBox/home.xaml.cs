@@ -18,6 +18,8 @@ using PasswordBox.Model;
 using PasswordBox.Common;
 using PasswordBox.Services;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -35,6 +37,62 @@ namespace PasswordBox
         {
             this.InitializeComponent();
             //Test();
+        }
+
+        /// <summary>
+        /// 点击已保存的密码item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ViewModel.selectedItem = (PasswordItem)e.ClickedItem;
+            Frame.Navigate(typeof(detail));
+        }
+
+        private void SearchItem(object sender, RoutedEventArgs e)
+        {
+            CleanItem();
+            var statement = DB.Query("SELECT Id FROM PasswordItem WHERE Title LIKE ? OR urlstr LIKE ?");
+            if (statement.Count == 0) return;
+            foreach (PasswordItem i in statement)
+            {
+                ViewModel.AllItems.Add(i);
+            }
+        }
+
+        private void CleanItem()
+        {
+            for (int i = ViewModel.AllItems.Count - 1; i >= 0; i--)
+            {
+                ViewModel.AllItems.Remove(ViewModel.AllItems[i]);
+            }
+            ViewModel.selectedItem = null;
+
+        }
+
+        private void SearchItem(object sender, TextChangedEventArgs e)
+        {
+            CleanItem();
+            var statement = DB.Query(searchBox.Text);
+            if (statement.Count == 0) return;
+            foreach (PasswordItem i in statement)
+            {
+                ViewModel.AllItems.Add(i);
+            }
+        }
+
+        private void IsEmpty(object sender, KeyRoutedEventArgs e)
+        {
+            if (searchBox.Text == string.Empty)
+            {
+                CleanItem();
+                var list = DB.GetAllItems();
+                foreach (PasswordItem i in list)
+                {
+                    ViewModel.AllItems.Add(i);
+                }
+            }
         }
 
         //public async void Test()

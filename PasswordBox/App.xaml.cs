@@ -7,12 +7,14 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace PasswordBox
@@ -30,7 +32,15 @@ namespace PasswordBox
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            loginFlag = false;
         }
+
+        /// <summary>
+        /// login flag
+        /// </summary>
+        static public bool loginFlag = false;
+
+        static public byte[] head;
 
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。

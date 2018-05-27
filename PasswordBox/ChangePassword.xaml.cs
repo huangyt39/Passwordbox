@@ -25,6 +25,106 @@ namespace PasswordBox
         public ChangePassword()
         {
             this.InitializeComponent();
+            SetOrChange();
         }
+
+        public void SetOrChange()
+        {
+            // Change Password
+            // have logined 
+            if (Services.UserInfo.CheckIfExist("LoginPassword") && App.loginFlag)
+            {
+                RememberPW.Visibility = Visibility.Visible;
+                ForgetPW.Visibility = Visibility.Collapsed;
+            }
+            // Set Password
+            // forget password
+            else if (Services.UserInfo.CheckIfExist("LoginPassword") && !App.loginFlag)
+            {
+                RememberPW.Visibility = Visibility.Collapsed;
+                ForgetPW.Visibility = Visibility.Visible;
+                question.IsEnabled = false;
+                question.Text = Services.UserInfo.GetInfo("Question");
+            }
+            // Set Password
+            // first use
+            else if (!Services.UserInfo.CheckIfExist("LoginPassword"))
+            {
+                RememberPW.Visibility = Visibility.Collapsed;
+                ForgetPW.Visibility = Visibility.Visible;
+                question.IsEnabled = true;
+            }
+        }
+
+        // check the question and change the password
+        private async void SetPassword(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog;
+            dialog = new ContentDialog()
+            {
+                Title = "提示",
+                PrimaryButtonText = "确认",
+                FullSizeDesired = false,
+            };
+            // only forget password should check the safety question
+            if (Services.UserInfo.CheckIfExist("Question"))
+            {
+                // check the answer
+                if (Services.UserInfo.GetInfo("Answer") != answer.Text)
+                {
+                    dialog.Content = "答案错误";
+                    dialog.PrimaryButtonClick += (_s, _e) => { };
+                    await dialog.ShowAsync();
+                }
+            }
+            else if (new_password.Text != confirm_password.Text)
+            {
+                // check the confirm password
+                dialog.Content = "两次密码不一致";
+                dialog.PrimaryButtonClick += (_s, _e) => { };
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                Services.UserInfo.SetInfo("Question", question.Text);
+                Services.UserInfo.SetInfo("Answer", answer.Text);
+                Services.UserInfo.SetInfo("LoginPassword", new_password.Text);
+                dialog.Content = "修改成功";
+                dialog.PrimaryButtonClick += (_s, _e) => {};
+                await dialog.ShowAsync();
+            }
+        }
+
+        // check the old password and set the new password
+        private async void SwitchPassword(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog;
+            dialog = new ContentDialog()
+            {
+                Title = "提示",
+                PrimaryButtonText = "确认",
+                FullSizeDesired = false,
+            };
+            // check the old password
+            if (Services.UserInfo.GetInfo("LoginPassword") != oldPassword.Password)
+            {
+                dialog.Content = "原密码错误";
+                dialog.PrimaryButtonClick += (_s, _e) => { };
+            }
+            // check the confirm password
+            else if (new_password.Text != confirm_password.Text)
+            {
+                dialog.Content = "两次密码不一致";
+                dialog.PrimaryButtonClick += (_s, _e) => { };
+            }
+            else
+            {
+                Services.UserInfo.SetInfo("LoginPassword", newPassword.Password);
+                dialog.Content = "修改成功";
+                dialog.PrimaryButtonClick += (_s, _e) => {};
+            }
+            await dialog.ShowAsync();
+        }
+
     }
 }

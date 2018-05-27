@@ -3,10 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PasswordBox"
+    xmlns:c="using:PasswordBox.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:me="using:PasswordBox.Model"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <c:ByteConverter x:Key="ByteConverter"/>
+    </UserControl.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -19,18 +23,19 @@
         <Image Source="Assets/HOME.png" Height="40"/>
         </RelativePanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
-            <TextBox Height="30" Width="200"></TextBox>
-            <Button FontFamily="Segoe MDL2 Assets" Content="&#xE71E;" FontSize="20" Width="40" Height="32" Background="White"></Button>
+            <TextBox Name="searchBox" Height="30" Width="200" TextChanged="SearchItem" KeyUp="IsEmpty" PlaceholderText="Search"/>
+            <!--<Button Name="searchButton" FontFamily="Segoe MDL2 Assets" Content="&#xE71E;" FontSize="20" Width="40" Height="32" Background="White" Click="SearchItem"></Button>-->
         </StackPanel>
         <GridView Grid.Row="3" IsItemClickEnabled="True" 
-              ItemsSource ="{x:Bind ViewModel.AllItems}"  AutomationProperties.IsRequiredForForm="True">
+              ItemsSource ="{x:Bind ViewModel.AllItems}"  AutomationProperties.IsRequiredForForm="True"
+              ItemClick="ItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType = "me:PasswordItem">
                     <StackPanel Height="130" Width="100" Margin="3">
                         <RelativePanel Height="90" Width="90" >
-                            <Image x:Name="image" Source="{Binding Img, Mode = OneWay}" Height="30" Width="30" Margin="30"/>
+                            <Image x:Name="image" Source="{Binding Img, Mode=OneWay, Converter={StaticResource ByteConverter}}" Height="30" Width="30" Margin="30"/>
                         </RelativePanel>
-                        <TextBlock Text="{Binding Title, Mode = OneWay}" VerticalAlignment="Center" Foreground="Black" Padding="10, 0, 0, 0"/>
+                        <TextBlock Text="{Binding Title, Mode=OneWay}" VerticalAlignment="Center" Foreground="Black" Padding="10, 0, 0, 0"/>
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>

@@ -115,7 +115,7 @@
                 </SplitView.Pane>
 
                 <SplitView.Content>
-                    <Frame Name="RootFrame" />
+                    <Frame Name="RootFrame" x:FieldModifier="Public"/>
                 </SplitView.Content>
 
             </SplitView>
@@ -126,7 +126,7 @@
                 <Button x:Name="ButtonHome"  Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;" RelativePanel.AlignLeftWithPanel="True"/>
                 <Button x:Name="ButtonAdd" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" RelativePanel.RightOf="ButtonHome"/>
                 <Button x:Name="ButtonMessage" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE13D;" RelativePanel.RightOf="ButtonAdd"/>
-                <Button x:Name="ButtonShare" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE119;" RelativePanel.RightOf="ButtonMessage"/>
+                <Button x:Name="ButtonShare" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE119;" RelativePanel.RightOf="ButtonMessage" Click="ShareItem"/>
                 <Button x:Name="ButtonKey" Height="50" Width="100" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE192;" RelativePanel.RightOf="ButtonShare"/>
             </RelativePanel>
             <Grid x:Name="GridContent"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.RightOf="RelativeNavigation" RelativePanel.AlignBottomWith="RelativeNavigation">

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace PasswordBox.Common
@@ -91,5 +94,28 @@ namespace PasswordBox.Common
             }
             return bitmap;
         }
+
+        /*
+        /// <summary>
+        /// item 存图片
+        /// </summary>
+        /// <param name="imageBuffer"></param>
+        /// <returns></returns>
+        public static async Task<ImageSource> SaveToImageSource(byte[] imageBuffer)
+        {
+            ImageSource imageSource = null;
+            using (MemoryStream stream = new MemoryStream(imageBuffer))
+            {
+                var ras = stream.AsRandomAccessStream();
+                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(BitmapDecoder.JpegDecoderId, ras);
+                var provider = await decoder.GetPixelDataAsync();
+                byte[] buffer = provider.DetachPixelData();
+                WriteableBitmap bitmap = new WriteableBitmap((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                await bitmap.PixelBuffer.AsStream().WriteAsync(buffer, 0, buffer.Length);
+                imageSource = bitmap;
+            }
+            return imageSource;
+        }
+        */
     }
 }

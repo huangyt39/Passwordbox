@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +27,129 @@ namespace PasswordBox
         public detail()
         {
             this.InitializeComponent();
+        }
+
+        private string str;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            LoadDetail();
+        }
+
+        /// <summary>
+        /// load the detail of the clickitem
+        /// </summary>
+        private async void LoadDetail()
+        {
+            if (ViewModel.StaticModel.ViewModel.selectedItem == null)
+            {
+                ContentDialog tip;
+                tip = new ContentDialog()
+                {
+                    Title = "提示",
+                    PrimaryButtonText = "确认",
+                    Content = "未选中事项",
+                    FullSizeDesired = false
+                };
+                tip.PrimaryButtonClick += (S, E) => {
+                    Frame.Navigate(typeof(Home));
+                };
+                await tip.ShowAsync();
+                return;
+            }
+            title.Text = ViewModel.StaticModel.ViewModel.selectedItem.Title;
+            account.Text = ViewModel.StaticModel.ViewModel.selectedItem.Account;
+            website.Text = ViewModel.StaticModel.ViewModel.selectedItem.Urlstr;
+            str = "";
+            for (int i = 0; i < ViewModel.StaticModel.ViewModel.selectedItem.Password.Length; i++)
+            {
+                str += '*';
+            }
+            password.Text = str;
+        }
+
+        /// <summary>
+        /// visit the website by the default browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void WebVisit(object sender, RoutedEventArgs e)
+        {
+            // the uri to launch
+            var uri = new Uri(@"http://" + website.Text);
+
+            // set the option to show a warning
+            var promptOptions = new LauncherOptions
+            {
+                TreatAsUntrusted = false
+            };
+
+            // launch the uri
+            var success = await Launcher.LaunchUriAsync(uri, promptOptions);
+
+            if (success)
+            {
+                await Launcher.LaunchUriAsync(uri, promptOptions);
+            }
+            else
+            {
+                ContentDialog tip;
+                tip = new ContentDialog()
+                {
+                    Title = "提示",
+                    PrimaryButtonText = "确认",
+                    Content = "访问失败，请检查网址是否正确",
+                    FullSizeDesired = false
+                };
+                tip.PrimaryButtonClick += (S, E) => { };
+                await tip.ShowAsync();
+            }
+        }
+
+        /// <summary>
+        /// copy the account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CopyAccount(object sender, RoutedEventArgs e)
+        {
+            DataPackage dp = new DataPackage();
+            dp.SetText(account.Text);
+            Clipboard.SetContent(dp);
+        }
+
+        /// <summary>
+        /// copy the password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CopyPassword(object sender, RoutedEventArgs e)
+        {
+            DataPackage dp = new DataPackage();
+            dp.SetText(ViewModel.StaticModel.ViewModel.selectedItem.Password);
+            Clipboard.SetContent(dp);
+        }
+
+        private void ShowPassword(object sender, RoutedEventArgs e)
+        {
+            if (ShowButton.Content.ToString() == "显示密码")
+            {
+                password.Text = ViewModel.StaticModel.ViewModel.selectedItem.Password;
+                ShowButton.Content = "隐藏密码";
+            }
+            else
+            {
+                password.Text = str;
+                ShowButton.Content = "显示密码";
+            }
+        }
+
+        private void DeleteItem(object sender, RoutedEventArgs e)
+        {
+            ViewModel.StaticModel.ViewModel.DeletePasswordItem();
+            ViewModel.StaticModel.ViewModel.selectedItem = null;
+            Frame.Navigate(typeof(Home));
         }
     }
 }

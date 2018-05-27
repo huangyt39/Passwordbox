@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using PasswordBox;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -26,11 +28,80 @@ namespace PasswordBox
         public Login()
         {
             this.InitializeComponent();
+            ShowHideButton();
+            userHead = App.head;
+        }
+        private byte[] userHead;
+        /// <summary>
+        /// 检验密码是否正确
+        /// 若正确则跳转到home
+        /// 否则提示密码错误
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void CheckPassword(object sender, RoutedEventArgs e)
+        {
+            // check the password success
+            if (checkPassword.Password == Services.UserInfo.GetInfo("LoginPassword"))
+            {
+                App.loginFlag = true;
+                Frame.Navigate(typeof(Home));
+                MainPage.Current.ShowMenu();
+                
+            }
+            // check the password fail
+            else
+            {
+                // caution the password error
+                ContentDialog dialog;
+                dialog = new ContentDialog()
+                {
+                    Title = "提示",
+                    PrimaryButtonText = "确认",
+                    Content = "密码错误",
+                    FullSizeDesired = false,
+                };
+                dialog.PrimaryButtonClick += (_s, _e) => { };
+                await dialog.ShowAsync();
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 忘记密码，跳转到更改密码页面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ForgetPassword(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(ChangePassword));
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ShowHideButton();
+            if (Services.UserInfo.GetImage("Head") == null)
+            {
+                BitmapImage bitmap = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
+                var photoFile = await StorageFile.GetFileFromApplicationUriAsync(bitmap.UriSource);
+                App.head = await Common.ImageHelper.AsByteArray(photoFile);
+            }
+            else userHead = App.head;
+        }
+
+        /// <summary>
+        /// decide when the forgetButton hide and when it shows
+        /// </summary>
+        private void ShowHideButton()
+        {
+            if (Services.UserInfo.CheckIfExist("LoginPassword") == false)
+            {
+                forgetButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                forgetButton.Visibility = Visibility.Visible;
+            }
         }
     }
 }
