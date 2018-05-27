@@ -93,5 +93,13 @@ namespace PasswordBox
                 forgetButton.Visibility = Visibility.Visible;
             }
         }
+
+        private void CheckPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                CheckPassword(null, null);
+            }
+        }
     }
 }
