@@ -47,7 +47,7 @@ namespace PasswordBox
             NavMenuPrimaryListView.ItemClick += NavMenuListView_ItemClick;
             NavMenuSecondaryListView.ItemClick += NavMenuListView_ItemClick;
             // 默认页
-            if (PasswordBox.Services.UserInfo.CheckIfExist("LoginPassword"))
+            if (Services.UserInfo.CheckIfExist("LoginPassword"))
             {
                 RootFrame.Navigate(typeof(Login));
             }
@@ -80,13 +80,6 @@ namespace PasswordBox
 
         private void NavMenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            /*
-            if (App.loginFlag == false)
-            {
-                Remind();
-                return;
-            }
-            */
             // 遍历，将选中Rectangle隐藏
             foreach (var np in MenuItems.navMenuPrimaryItem)
             {
@@ -107,33 +100,6 @@ namespace PasswordBox
 
             RootSplitView.IsPaneOpen = false;
         }
-
-        /*
-        /// <summary>
-        /// 提示:
-        /// 未设置安全问题和密码以及登录之前不允许进入其他页面
-        /// </summary>
-        private async void Remind()
-        {
-            ContentDialog dialog;
-            dialog = new ContentDialog()
-            {
-                Title = "提示",
-                PrimaryButtonText = "确认",
-                FullSizeDesired = false,
-            };
-            if (Services.UserInfo.CheckIfExist("LoginPassword"))
-            {
-                dialog.Content = "请先登录";
-            }
-            else
-            {
-                dialog.Content = "请先设置安全问题及登录密码";
-            }
-            dialog.PrimaryButtonClick += (_s, _e) => { };
-            await dialog.ShowAsync();
-        }
-        */
 
         /// <summary>
         /// 动态磁贴
@@ -166,42 +132,6 @@ namespace PasswordBox
             var tileNotification = new TileNotification(document);
             TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
             TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
-        }
-
-        private void ShareItem(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.StaticModel.ViewModel.selectedItem == null) return;
-            var s = sender as FrameworkElement;
-            var item = (PasswordItem)s.DataContext;
-            ViewModel.StaticModel.ViewModel.selectedItem = item;
-
-            DataTransferManager.ShowShareUI();
-        }
-
-        async void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
-        {
-            DataRequest request = args.Request;
-            DataRequestDeferral deferal = request.GetDeferral();
-            request.Data.Properties.Title = ViewModel.StaticModel.ViewModel.selectedItem.Account;
-            request.Data.Properties.Description = ViewModel.StaticModel.ViewModel.selectedItem.Password;
-
-            request.Data.SetText(ViewModel.StaticModel.ViewModel.selectedItem.Title);
-            BitmapImage bitmap = await Common.ImageHelper.AsBitmapImage(ViewModel.StaticModel.ViewModel.selectedItem.Img);
-            var photoFile = await StorageFile.GetFileFromApplicationUriAsync(bitmap.UriSource);
-            request.Data.SetStorageItems(new List<StorageFile> { photoFile });
-            deferal.Complete();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
         }
     }
 }

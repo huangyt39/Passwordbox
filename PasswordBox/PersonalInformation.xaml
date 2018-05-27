@@ -36,8 +36,8 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-            <Image Grid.Column="1" Grid.Row="1" Name="Picture" Height="120" Width="120" Source="{x:Bind picSelect, Mode=OneWay, Converter={StaticResource ByteConverter}}"/>
-        <Button Grid.Column="1" Grid.Row="2" Name="Head" Width="120" Height="30" Content="更换头像" HorizontalAlignment="Center" Click="SelectPicture"/>
+            <Image Grid.Column="1" Grid.Row="1" Name="UserHead" Height="120" Width="120" Source="{x:Bind picSelect, Mode=OneWay, Converter={StaticResource ByteConverter}}"/>
+        <Button Grid.Column="1" Grid.Row="2" Width="120" Height="30" Content="更换头像" HorizontalAlignment="Center" Click="SelectPicture"/>
         <TextBlock Grid.Column="2" />
         </Grid>
         <Grid Grid.Column="1" Grid.Row="2">

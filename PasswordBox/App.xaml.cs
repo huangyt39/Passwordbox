@@ -39,9 +39,7 @@ namespace PasswordBox
         /// login flag
         /// </summary>
         static public bool loginFlag = false;
-
-        static public byte[] head;
-
+        
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
         /// 将在启动应用程序以打开特定文件等情况下使用。

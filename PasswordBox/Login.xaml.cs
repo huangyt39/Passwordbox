@@ -29,7 +29,7 @@ namespace PasswordBox
         {
             this.InitializeComponent();
             ShowHideButton();
-            userHead = App.head;
+            LoadUserHead();
         }
         private byte[] userHead;
         /// <summary>
@@ -47,7 +47,6 @@ namespace PasswordBox
                 App.loginFlag = true;
                 Frame.Navigate(typeof(Home));
                 MainPage.Current.ShowMenu();
-                
             }
             // check the password fail
             else
@@ -76,21 +75,20 @@ namespace PasswordBox
             Frame.Navigate(typeof(ChangePassword));
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        /// <summary>
+        /// load the user head
+        /// </summary>
+        private async void LoadUserHead()
         {
-            base.OnNavigatedTo(e);
-            ShowHideButton();
             if (Services.UserInfo.GetImage("Head") == null)
             {
-                BitmapImage bitmap = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
-                var photoFile = await StorageFile.GetFileFromApplicationUriAsync(bitmap.UriSource);
-                App.head = await Common.ImageHelper.AsByteArray(photoFile);
+                poster.ImageSource = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
             }
-            else userHead = App.head;
+            else userHead = await Services.UserInfo.GetImage("Head");
         }
 
         /// <summary>
-        /// decide when the forgetButton hide and when it shows
+        /// decide the forgetButton hide or show
         /// </summary>
         private void ShowHideButton()
         {

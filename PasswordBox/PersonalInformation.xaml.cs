@@ -26,7 +26,6 @@ namespace PasswordBox
         public PersonalMessage()
         {
             this.InitializeComponent();
-            picSelect = App.head;
         }
         /// <summary>
         /// save the picture for the head portrait
@@ -48,41 +47,16 @@ namespace PasswordBox
         /// </summary>
         private async void LoadUserInformation()
         {
-            // load username
-            if (Services.UserInfo.CheckIfExist("UserName"))
-            {
-                username.Text = Services.UserInfo.GetInfo("UserName");
-            }
-            else
-            {
-                username.Text = "";
-            }
-            // load safety question
-            if (Services.UserInfo.CheckIfExist("Question"))
-            {
-                question.Text = Services.UserInfo.GetInfo("Question");
-            }
-            else
-            {
-                question.Text = "";
-            }
-            // load answer
-            if (Services.UserInfo.CheckIfExist("Answer"))
-            {
-                answer.Text = Services.UserInfo.GetInfo("Answer");
-            }
-            else
-            {
-                answer.Text = "";
-            }
-            // load head picture
+            username.Text = Services.UserInfo.CheckIfExist("UserName") == true ? Services.UserInfo.GetInfo("UserName") : "";
+            question.Text = Services.UserInfo.CheckIfExist("Question") == true ? Services.UserInfo.GetInfo("Question") : "";
+            answer.Text = Services.UserInfo.CheckIfExist("Answer") == true ? Services.UserInfo.GetInfo("Answer") : "";
             if (Services.UserInfo.GetImage("Head") != null)
             {
                 picSelect = await Services.UserInfo.GetImage("Head");
             }
             else
             {
-                Picture.Source = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
+                UserHead.Source = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
             }
         }
 
@@ -107,7 +81,6 @@ namespace PasswordBox
                 Services.UserInfo.SetInfo("UserName", username.Text);
                 Services.UserInfo.SetInfo("Question", question.Text);
                 Services.UserInfo.SetInfo("Answer", answer.Text);
-                App.head = picSelect;
             };
             dialog.SecondaryButtonClick += async (_s, _e) =>
             {
@@ -121,7 +94,11 @@ namespace PasswordBox
 
         private async void SelectPicture(object sender, RoutedEventArgs e)
         {
-            picSelect = await Common.ImageHelper.Picker();
+            var p = await Common.ImageHelper.Picker();
+            if (p != null)
+            {
+                picSelect = p; //无效,待修改
+            }
         }
     }
 }

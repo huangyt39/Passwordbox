@@ -55,30 +55,24 @@ namespace PasswordBox
                 await tip.ShowAsync();
                 return;
             }
-            if (CheckPassword(_password) == false)
-            {
-                ContentDialog tip;
-                tip = new ContentDialog()
-                {
-                    Title = "提示",
-                    PrimaryButtonText = "确认",
-                    Content = "密码不能少于6位",
-                    FullSizeDesired = false
-                };
-                tip.PrimaryButtonClick += (S, E) => { };
-                await tip.ShowAsync();
-            }
             if (_website != string.Empty && Services.HttpAccess.GetIco(_website) != null)
             {
                 ItemPic = await Services.HttpAccess.GetIco(_website);
-                ViewModel.StaticModel.ViewModel.AddPasswordItem(_title, ItemPic, _website, _account, _password);
             }
             else
             {
                 BitmapImage bitmap = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
+                img.Source = bitmap;
                 var photoFile = await StorageFile.GetFileFromApplicationUriAsync(bitmap.UriSource);
                 ItemPic = await Common.ImageHelper.AsByteArray(photoFile);
+            }
+            if (ViewModel.StaticModel.ViewModel.selectedItem == null)
+            {
                 ViewModel.StaticModel.ViewModel.AddPasswordItem(_title, ItemPic, _website, _account, _password);
+            }
+            else
+            {
+                ViewModel.StaticModel.ViewModel.UpdatePasswordItem(_title, ItemPic, _website, _account, _password);
             }
             Frame.Navigate(typeof(Home));
         }
@@ -91,11 +85,6 @@ namespace PasswordBox
         private bool CheckWebsite(string website)
         {
             return Services.HttpAccess.CheckURL(website);
-        }
-
-        private bool CheckPassword(string password)
-        {
-            return password.Length >= 6;
         }
 
         /// <summary>
@@ -124,6 +113,33 @@ namespace PasswordBox
                 id[i] = availableChars[random.Next(0, availableChars.Length)];
             }
             return new string(id);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                LoadSelectedItem();
+            }
+        }
+
+        private void LoadSelectedItem()
+        {
+            title.Text = ViewModel.StaticModel.ViewModel.selectedItem.Title;
+            website.Text = ViewModel.StaticModel.ViewModel.selectedItem.Urlstr;
+            account.Text = ViewModel.StaticModel.ViewModel.selectedItem.Account;
+            password.Password = ViewModel.StaticModel.ViewModel.selectedItem.Password;
+            ItemPic = ViewModel.StaticModel.ViewModel.selectedItem.Img;
+        }
+
+        private async void SelectPicture(object sender, RoutedEventArgs e)
+        {
+            var p = await Common.ImageHelper.Picker();
+            if (p != null)
+            {
+                ItemPic = p; // 无效，待修改
+            }
         }
     }
 }

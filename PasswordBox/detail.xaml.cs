@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordBox.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -30,12 +34,6 @@ namespace PasswordBox
         }
 
         private string str;
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            LoadDetail();
-        }
 
         /// <summary>
         /// load the detail of the clickitem
@@ -76,16 +74,13 @@ namespace PasswordBox
         /// <param name="e"></param>
         private async void WebVisit(object sender, RoutedEventArgs e)
         {
-            // the uri to launch
-            var uri = new Uri(@"http://" + website.Text);
+            if (website.Text == string.Empty) return;
 
-            // set the option to show a warning
+            var uri = new Uri(@"http://" + website.Text);
             var promptOptions = new LauncherOptions
             {
                 TreatAsUntrusted = false
             };
-
-            // launch the uri
             var success = await Launcher.LaunchUriAsync(uri, promptOptions);
 
             if (success)
@@ -150,6 +145,43 @@ namespace PasswordBox
             ViewModel.StaticModel.ViewModel.DeletePasswordItem();
             ViewModel.StaticModel.ViewModel.selectedItem = null;
             Frame.Navigate(typeof(Home));
+        }
+
+        private void ShareItem(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.ShowShareUI();
+        }
+
+        async void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+            DataRequestDeferral deferal = request.GetDeferral();
+            request.Data.Properties.Title = ViewModel.StaticModel.ViewModel.selectedItem.Title;
+            request.Data.Properties.Description = ViewModel.StaticModel.ViewModel.selectedItem.Account;
+            
+            string content = "Website: " + ViewModel.StaticModel.ViewModel.selectedItem.Urlstr + '\n' +
+                             "Account: " + ViewModel.StaticModel.ViewModel.selectedItem.Account + '\n' +
+                             "Password: " + ViewModel.StaticModel.ViewModel.selectedItem.Password;
+            request.Data.SetText(content);
+            deferal.Complete();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
+            LoadDetail();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
+        }
+
+        private void TurnToChangePage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NewOrUpdate), 1);
         }
     }
 }

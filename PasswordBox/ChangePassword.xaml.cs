@@ -66,33 +66,35 @@ namespace PasswordBox
                 PrimaryButtonText = "确认",
                 FullSizeDesired = false,
             };
-            // only forget password should check the safety question
-            if (Services.UserInfo.CheckIfExist("Question"))
+            if (!Services.UserInfo.CheckIfExist("Question") && question.Text == string.Empty)
             {
-                // check the answer
-                if (Services.UserInfo.GetInfo("Answer") != answer.Text)
-                {
-                    dialog.Content = "答案错误";
-                    dialog.PrimaryButtonClick += (_s, _e) => { };
-                    await dialog.ShowAsync();
-                }
+                dialog.Content = "安全问题不能为空";
             }
-            else if (new_password.Text != confirm_password.Text)
+            else if (answer.Text == string.Empty)
             {
-                // check the confirm password
+                dialog.Content = "答案不能为空";
+            }
+            else if (Services.UserInfo.CheckIfExist("Question") && Services.UserInfo.GetInfo("Answer") != answer.Text)
+            {
+                dialog.Content = "答案错误";
+            }
+            else if (new_password.Password == string.Empty)
+            {
+                dialog.Content = "新密码不能为空";
+            }
+            else if (new_password.Password != confirm_password.Password)
+            {
                 dialog.Content = "两次密码不一致";
-                dialog.PrimaryButtonClick += (_s, _e) => { };
-                await dialog.ShowAsync();
             }
             else
             {
                 Services.UserInfo.SetInfo("Question", question.Text);
                 Services.UserInfo.SetInfo("Answer", answer.Text);
-                Services.UserInfo.SetInfo("LoginPassword", new_password.Text);
+                Services.UserInfo.SetInfo("LoginPassword", new_password.Password);
                 dialog.Content = "修改成功";
-                dialog.PrimaryButtonClick += (_s, _e) => {};
-                await dialog.ShowAsync();
             }
+            dialog.PrimaryButtonClick += (_s, _e) => { };
+            await dialog.ShowAsync();
         }
 
         // check the old password and set the new password
@@ -109,20 +111,18 @@ namespace PasswordBox
             if (Services.UserInfo.GetInfo("LoginPassword") != oldPassword.Password)
             {
                 dialog.Content = "原密码错误";
-                dialog.PrimaryButtonClick += (_s, _e) => { };
             }
             // check the confirm password
-            else if (new_password.Text != confirm_password.Text)
+            else if (new_password.Password != confirm_password.Password)
             {
                 dialog.Content = "两次密码不一致";
-                dialog.PrimaryButtonClick += (_s, _e) => { };
             }
             else
             {
                 Services.UserInfo.SetInfo("LoginPassword", newPassword.Password);
                 dialog.Content = "修改成功";
-                dialog.PrimaryButtonClick += (_s, _e) => {};
             }
+            dialog.PrimaryButtonClick += (_s, _e) => { };
             await dialog.ShowAsync();
         }
 
