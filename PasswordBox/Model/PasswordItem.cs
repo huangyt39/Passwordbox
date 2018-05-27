@@ -129,8 +129,12 @@ namespace PasswordBox.Model
         /// </summary>
         public PasswordItem() { }
 
-        public PasswordItem(string _title, Byte[] _img, string _urlstr, string _account, string _password)
+        public PasswordItem(string _id, string _title, Byte[] _img, string _urlstr, string _account, string _password)
         {
+<<<<<<< HEAD
+=======
+            this.id = _id;
+>>>>>>> 5fbdc3f5e8aaf7da89a158b45bd1fef15a6a375e
             this.Img = _img;
             this.Title = _title;
             this.urlstr = _urlstr;
