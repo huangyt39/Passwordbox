@@ -63,18 +63,15 @@ namespace PasswordBox
         {
             if (website.Text == string.Empty) return;
 
-            var uri = new Uri(@"http://" + website.Text);
+            UriBuilder ub = new UriBuilder(website.Text);
+            var uri = new Uri(@"http://" + ub.Host);
             var promptOptions = new LauncherOptions
             {
                 TreatAsUntrusted = false
             };
             var success = await Launcher.LaunchUriAsync(uri, promptOptions);
 
-            if (success)
-            {
-                await Launcher.LaunchUriAsync(uri, promptOptions);
-            }
-            else
+            if (!success)
             {
                 ContentDialog tip;
                 tip = new ContentDialog()
