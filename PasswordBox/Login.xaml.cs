@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Navigation;
 using PasswordBox;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
+using PasswordBox.ViewModel;
+using PasswordBox.Model;
+using PasswordBox.Common;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -29,9 +32,10 @@ namespace PasswordBox
         {
             this.InitializeComponent();
             ShowHideButton();
-            LoadUserHead();
         }
-        private byte[] userHead;
+
+        PersonalInfo Info => StaticModel.Info;
+
         /// <summary>
         /// 检验密码是否正确
         /// 若正确则跳转到home
@@ -42,7 +46,7 @@ namespace PasswordBox
         private async void CheckPassword(object sender, RoutedEventArgs e)
         {
             // check the password success
-            if (checkPassword.Password == Services.UserInfo.GetInfo("LoginPassword"))
+            if (Crypto.TestEqual(Info.Password, checkPassword.Password))
             {
                 App.loginFlag = true;
                 Frame.Navigate(typeof(Home));
@@ -76,18 +80,6 @@ namespace PasswordBox
         }
 
         /// <summary>
-        /// load the user head
-        /// </summary>
-        private async void LoadUserHead()
-        {
-            if (Services.UserInfo.GetImage("Head") == null)
-            {
-                poster.ImageSource = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
-            }
-            else userHead = await Services.UserInfo.GetImage("Head");
-        }
-
-        /// <summary>
         /// decide the forgetButton hide or show
         /// </summary>
         private void ShowHideButton()
@@ -99,6 +91,14 @@ namespace PasswordBox
             else
             {
                 forgetButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void CheckPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                CheckPassword(null, null);
             }
         }
     }

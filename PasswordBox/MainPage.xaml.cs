@@ -110,7 +110,7 @@ namespace PasswordBox
         /// <summary>
         /// 动态磁贴
         /// </summary>
-        private async void AdaptiveTile()
+        private void AdaptiveTile()
         {
             TileUpdateManager.CreateTileUpdaterForApplication().Clear();
             XmlDocument document = new XmlDocument();
@@ -123,15 +123,14 @@ namespace PasswordBox
             }
 
             XmlNodeList imgElements = document.GetElementsByTagName("image");
-            var imgElement = imgElements[0] as Windows.Data.Xml.Dom.XmlElement;
+            var imgElement = imgElements[0] as XmlElement;
             for (int i = 0; i < imgElements.Count; i++)
             {
-                imgElement = imgElements[i] as Windows.Data.Xml.Dom.XmlElement;
-                if (Services.UserInfo.CheckIfExist("Head"))
+                imgElement = imgElements[i] as XmlElement;
+                if (Services.UserInfo.GetImage("Avator.jpg") != null)
                 {
-                    byte[] pic = await Services.UserInfo.GetImage("Head");
-                    BitmapImage bitmap = await Common.ImageHelper.AsBitmapImage(pic);
-                    imgElement.SetAttribute("Source", bitmap.UriSource.ToString());
+                    imgElement.SetAttribute("Source", 
+                        Path.Combine(ApplicationData.Current.LocalFolder.Path, "Avator.jpg"));
                 }
             }
 

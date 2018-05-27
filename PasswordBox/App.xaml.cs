@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordBox.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace PasswordBox
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -79,6 +80,7 @@ namespace PasswordBox
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
+            await ImageHelper.GetDefaultPixels();
         }
 
         /// <summary>

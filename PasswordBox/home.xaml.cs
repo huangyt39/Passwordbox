@@ -36,7 +36,6 @@ namespace PasswordBox
         public Home()
         {
             this.InitializeComponent();
-            //Test();
         }
 
         /// <summary>
