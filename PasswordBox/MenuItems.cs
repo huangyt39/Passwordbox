@@ -38,15 +38,6 @@ namespace PasswordBox
                     Label = "个人信息",
                     Selected = Visibility.Collapsed,
                     DestPage = typeof(PersonalMessage)
-                },
-
-                new NavMenuItem()
-                {
-                    FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                    Icon = "\xE72D",
-                    Label = "分享",
-                    Selected = Visibility.Collapsed,
-                    DestPage = typeof(detail)
                 }
 
             });
