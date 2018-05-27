@@ -30,17 +30,33 @@ namespace PasswordBox
         /// <param name="e"></param>
         private async void SaveContent(object sender, RoutedEventArgs e)
         {
-            if (item.Urlstr != string.Empty && CheckWebsite(item.Urlstr) == false)
+            ContentDialog tip;
+            tip = new ContentDialog()
             {
-                ContentDialog tip;
-                tip = new ContentDialog()
-                {
-                    Title = "提示",
-                    PrimaryButtonText = "确认",
-                    Content = "网址格式错误",
-                    FullSizeDesired = false
-                };
-                tip.PrimaryButtonClick += (S, E) => { };
+                Title = "提示",
+                PrimaryButtonText = "确认",
+                FullSizeDesired = false
+            };
+            tip.Content = string.Empty;
+            tip.PrimaryButtonClick += (S, E) => {};
+            if (item.Title == string.Empty)
+            {
+                tip.Content = "标题不能为空";
+            }
+            else if (item.Account == string.Empty)
+            {
+                tip.Content = "账号不能为空";
+            }
+            else if (item.Password == string.Empty)
+            {
+                tip.Content = "密码不能为空";
+            }
+            else if (item.Urlstr != string.Empty && CheckWebsite(item.Urlstr) == false)
+            {
+                tip.Content = "网址格式错误";
+            }
+            if (tip.Content.ToString() != string.Empty)
+            {
                 await tip.ShowAsync();
                 return;
             }

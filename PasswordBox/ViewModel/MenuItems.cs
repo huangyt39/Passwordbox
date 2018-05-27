@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using PasswordBox;
-namespace PasswordBox
+using PasswordBox.Model;
+
+namespace PasswordBox.ViewModel
 {
     public class MenuItems
     {
@@ -26,7 +28,7 @@ namespace PasswordBox
                 {
                     FontFamily = new FontFamily("Segoe MDL2 Assets"),
                     Icon = "\xE109",
-                    Label = "添加新密码",
+                    Label = "添加",
                     Selected = Visibility.Collapsed,
                     DestPage = typeof(NewOrUpdate)
                 },

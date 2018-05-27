@@ -23,8 +23,7 @@
         <Image Source="Assets/HOME.png" Height="40"/>
         </RelativePanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
-            <TextBox Name="searchBox" Height="30" Width="200" TextChanged="SearchItem" KeyUp="IsEmpty" PlaceholderText="Search"/>
-            <!--<Button Name="searchButton" FontFamily="Segoe MDL2 Assets" Content="&#xE71E;" FontSize="20" Width="40" Height="32" Background="White" Click="SearchItem"></Button>-->
+            <TextBox Name="searchBox" Height="30" Width="200" KeyUp="SearchItem" PlaceholderText="Search"/>
         </StackPanel>
         <GridView Grid.Row="3" IsItemClickEnabled="True" 
               ItemsSource ="{x:Bind ViewModel.AllItems}"  AutomationProperties.IsRequiredForForm="True"
@@ -32,7 +31,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType = "me:PasswordItem">
                     <StackPanel Height="130" Width="100" Margin="3">
-                        <RelativePanel Height="90" Width="90" >
+                        <RelativePanel Height="90" Width="90" KeyUp="SearchItem" >
                             <Image x:Name="image" Source="{x:Bind Img, Mode=OneWay, Converter={StaticResource ByteConverter}}" Height="30" Width="30" Margin="30"/>
                         </RelativePanel>
                         <TextBlock Text="{x:Bind Title, Mode=OneWay}" VerticalAlignment="Center" Foreground="Black" Padding="10, 0, 0, 0"/>

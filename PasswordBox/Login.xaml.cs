@@ -32,6 +32,7 @@ namespace PasswordBox
         {
             this.InitializeComponent();
             ShowHideButton();
+            LiveTile.LoadTile();
         }
 
         PersonalInfo Info => StaticModel.Info;

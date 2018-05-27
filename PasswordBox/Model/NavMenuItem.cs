@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace PasswordBox
+namespace PasswordBox.Model
 {
     public class NavMenuItem : INotifyPropertyChanged
     {
