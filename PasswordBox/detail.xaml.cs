@@ -152,7 +152,7 @@ namespace PasswordBox
             DataTransferManager.ShowShareUI();
         }
 
-        async void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             DataRequest request = args.Request;
             DataRequestDeferral deferal = request.GetDeferral();

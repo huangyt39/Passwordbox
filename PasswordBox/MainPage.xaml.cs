@@ -73,9 +73,15 @@ namespace PasswordBox
 
         public void ShowMenu()
         {
-            RootSplitView.CompactPaneLength = 48;
-            PaneOpenButton.Visibility = Visibility.Visible;
-            BottomButtons.Visibility = Visibility.Visible;
+            if (Window.Current.Bounds.Width <= 500)
+            {
+                BottomButtons.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                RootSplitView.CompactPaneLength = 48;
+                PaneOpenButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void NavMenuListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -132,6 +138,26 @@ namespace PasswordBox
             var tileNotification = new TileNotification(document);
             TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
             TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
+        }
+
+        private void NavigateToHome(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Home));
+        }
+
+        private void NavigateToAdd(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NewOrUpdate));
+        }
+
+        private void NavigateToPersonalInfo(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PersonalMessage));
+        }
+
+        private void NavigateToChangePassword(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ChangePassword));
         }
     }
 }

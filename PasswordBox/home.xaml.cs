@@ -50,17 +50,6 @@ namespace PasswordBox
             Frame.Navigate(typeof(detail));
         }
 
-        private void SearchItem(object sender, RoutedEventArgs e)
-        {
-            CleanItem();
-            var statement = DB.Query("SELECT Id FROM PasswordItem WHERE Title LIKE ? OR urlstr LIKE ?");
-            if (statement.Count == 0) return;
-            foreach (PasswordItem i in statement)
-            {
-                ViewModel.AllItems.Add(i);
-            }
-        }
-
         private void CleanItem()
         {
             for (int i = ViewModel.AllItems.Count - 1; i >= 0; i--)
@@ -68,7 +57,6 @@ namespace PasswordBox
                 ViewModel.AllItems.Remove(ViewModel.AllItems[i]);
             }
             ViewModel.selectedItem = null;
-
         }
 
         private void SearchItem(object sender, TextChangedEventArgs e)
@@ -94,22 +82,5 @@ namespace PasswordBox
                 }
             }
         }
-
-        //public async void Test()
-        //{
-        //    var items = DB.GetAllItems();
-        //    //items[0].Title = "1";
-        //    //DB.Delete(items[0]);
-        //    //if (Crypto.Decrypt(Crypto.Encrypt("123")) != "123" || !Crypto.TestEqual(Crypto.Hash("123"), "123"))
-        //    //{
-        //    //}
-        //    //byte[] res = await HttpAccess.GetIco("https://www.bilibili.com/");
-        //    //if (res != null)
-        //    //{
-        //    //    await ImageHelper.AsStorageFile(res, "test.jpg");
-        //    //    BitmapImage image = await ImageHelper.AsBitmapImage(res);
-        //    //}
-
-        //}
     }
 }
