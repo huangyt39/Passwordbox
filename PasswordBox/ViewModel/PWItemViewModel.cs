@@ -33,23 +33,17 @@ namespace PasswordBox.ViewModel
             this.allItems.Add(new PasswordItem("Title3", NewImage, "Url3", "Account3", "Password3"));*/
         }
 
-        public void AddPasswordItem(string id, string title, Byte[] img, string urlstr, string account, string password)
+        public void AddPasswordItem(string title, Byte[] img, string urlstr, string account, string password)
         {
-            PasswordItem newItem = new PasswordItem(id, title, img, urlstr, account, password);
+            PasswordItem newItem = new PasswordItem(title, img, urlstr, account, password);
             this.allItems.Add(newItem);
             DB.Add(newItem);
         }
 
-        public void SearchPasswordItem(string str)
-        {
-
-        }
-
-        public void UpdatePasswordItem(string id, string title, Byte[] img, string urlstr, string account, string password)
+        public void UpdatePasswordItem(string title, Byte[] img, string urlstr, string account, string password)
         {
             if (this.selectedItem != null)
             {
-                this.selectedItem.Id = id;
                 this.selectedItem.Title = title;
                 this.selectedItem.Img = img;
                 this.selectedItem.Urlstr = urlstr;
