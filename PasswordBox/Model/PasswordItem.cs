@@ -1,4 +1,5 @@
-﻿using SQLite.Net.Attributes;
+﻿using PasswordBox.Common;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,7 @@ namespace PasswordBox.Model
     {
 
         private string title;
-        private Byte[] img;
+        private byte[] img;
         private int id;
         private string urlstr;
         private string account;
@@ -31,8 +32,8 @@ namespace PasswordBox.Model
             {
                 if (value != this.password)
                 {
-                    this.password = value; ;
-                    NotifyPropertyChanged("password");
+                    this.password = value;
+                    NotifyPropertyChanged("Password");
                 }
             }
         }
@@ -48,7 +49,7 @@ namespace PasswordBox.Model
                 if (value != this.account)
                 {
                     this.account = value; ;
-                    NotifyPropertyChanged("account");
+                    NotifyPropertyChanged("Account");
                 }
             }
         }
@@ -64,7 +65,7 @@ namespace PasswordBox.Model
                 if(value != this.urlstr)
                 {
                     this.urlstr = value;
-                    NotifyPropertyChanged("urlstr");
+                    NotifyPropertyChanged("Urlstr");
                 }
             }
         }
@@ -86,7 +87,7 @@ namespace PasswordBox.Model
                 if (value != this.id)
                 {
                     this.id = value;
-                    NotifyPropertyChanged("id");
+                    NotifyPropertyChanged("Id");
                 }
             }
         }
@@ -103,11 +104,11 @@ namespace PasswordBox.Model
                 if (value != this.title)
                 {
                     this.title = value;
-                    NotifyPropertyChanged("title");
+                    NotifyPropertyChanged("Title");
                 }
             }
         }
-        public Byte[] Img
+        public byte[] Img
         {
             get
             {
@@ -119,7 +120,7 @@ namespace PasswordBox.Model
                 if (value != this.img)
                 {
                     this.img = value;
-                    NotifyPropertyChanged("img");
+                    NotifyPropertyChanged("Img");
                 }
             }
         }
@@ -129,9 +130,9 @@ namespace PasswordBox.Model
         /// </summary>
         public PasswordItem() { }
 
-        public PasswordItem(string _title, Byte[] _img, string _urlstr, string _account, string _password)
+        public PasswordItem(string _title, byte[] _img, string _urlstr, string _account, string _password)
         {
-            this.Img = _img;
+            this.Img = _img ?? ImageHelper.DefaultImg;
             this.Title = _title;
             this.urlstr = _urlstr;
             this.account = _account;

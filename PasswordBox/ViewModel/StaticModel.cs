@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordBox.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,7 @@ namespace PasswordBox.ViewModel
     public class StaticModel
     {
         public static PWItemViewModel ViewModel = new PWItemViewModel();
+
+        public static PersonalInfo Info = new PersonalInfo();
     }
 }

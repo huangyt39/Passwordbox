@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PasswordBox.Common;
+using PasswordBox.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace PasswordBox
         {
             // Change Password
             // have logined 
-            if (Services.UserInfo.CheckIfExist("LoginPassword") && App.loginFlag)
+            if (StaticModel.Info.Password != "" && App.loginFlag)
             {
                 RememberPW.Visibility = Visibility.Visible;
                 ForgetPW.Visibility = Visibility.Collapsed;
@@ -93,7 +95,11 @@ namespace PasswordBox
                 Services.UserInfo.SetInfo("LoginPassword", new_password.Password);
                 dialog.Content = "修改成功";
             }
-            dialog.PrimaryButtonClick += (_s, _e) => { };
+            dialog.PrimaryButtonClick += (_s, _e) => 
+            {
+                MainPage.Current.ShowMenu();
+                Frame.Navigate(typeof(Home));
+            };
             await dialog.ShowAsync();
         }
 
@@ -108,7 +114,7 @@ namespace PasswordBox
                 FullSizeDesired = false,
             };
             // check the old password
-            if (Services.UserInfo.GetInfo("LoginPassword") != oldPassword.Password)
+            if (Crypto.TestEqual(StaticModel.Info.Password, new_password.Password))
             {
                 dialog.Content = "原密码错误";
             }

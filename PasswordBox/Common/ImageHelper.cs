@@ -21,19 +21,19 @@ namespace PasswordBox.Common
         public static string DefaultImageUri
         {
             get;
-        } = "ms-appx:///Assets/cat.jpg";
+        } = "ms-appx:///Assets/cat.png";
 
-        public static byte[] DefaultPixels { get; private set; }
+        static public byte[] DefaultImg { get; private set; }
 
         /// <summary>
-        /// 打开应用时调用，可避免以后使用async/await
+        /// 获得默认图片
         /// </summary>
         /// <returns></returns>
         public static async Task GetDefaultPixels()
         {
             StorageFile imgFile;
             imgFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(DefaultImageUri));
-            DefaultPixels = await AsByteArray(imgFile);
+            DefaultImg = await AsByteArray(imgFile);
         }
 
         #endregion
@@ -79,43 +79,5 @@ namespace PasswordBox.Common
             return bytes;
         }
 
-        /// <summary>
-        /// 可能用不上，记得删掉
-        /// </summary>
-        /// <param name="pixels">图片bytes</param>
-        /// <returns>BitmapImage</returns>
-        public static async Task<BitmapImage> AsBitmapImage(byte[] pixels)
-        {
-            if (pixels == null) return null;
-            BitmapImage bitmap = new BitmapImage();
-            using (MemoryStream stream = new MemoryStream(pixels))
-            {
-                await bitmap.SetSourceAsync(stream.AsRandomAccessStream());
-            }
-            return bitmap;
-        }
-
-        /*
-        /// <summary>
-        /// item 存图片
-        /// </summary>
-        /// <param name="imageBuffer"></param>
-        /// <returns></returns>
-        public static async Task<ImageSource> SaveToImageSource(byte[] imageBuffer)
-        {
-            ImageSource imageSource = null;
-            using (MemoryStream stream = new MemoryStream(imageBuffer))
-            {
-                var ras = stream.AsRandomAccessStream();
-                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(BitmapDecoder.JpegDecoderId, ras);
-                var provider = await decoder.GetPixelDataAsync();
-                byte[] buffer = provider.DetachPixelData();
-                WriteableBitmap bitmap = new WriteableBitmap((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                await bitmap.PixelBuffer.AsStream().WriteAsync(buffer, 0, buffer.Length);
-                imageSource = bitmap;
-            }
-            return imageSource;
-        }
-        */
     }
 }

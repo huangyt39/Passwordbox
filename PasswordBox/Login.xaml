@@ -30,7 +30,7 @@
                     <CompositeTransform Rotation="0"/>
                 </Ellipse.RenderTransform>
                 <Ellipse.Fill>
-                    <ImageBrush x:Name="poster" ImageSource="{x:Bind userHead, Mode=OneWay, Converter={StaticResource ByteConverter}}"/>
+                    <ImageBrush x:Name="poster" ImageSource="{x:Bind Info.Avator, Mode=OneWay, Converter={StaticResource ByteConverter}}"/>
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,25,10,0" >

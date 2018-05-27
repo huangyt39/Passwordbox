@@ -36,7 +36,6 @@ namespace PasswordBox
         public Home()
         {
             this.InitializeComponent();
-            //Test();
         }
 
         /// <summary>
@@ -48,17 +47,6 @@ namespace PasswordBox
         {
             ViewModel.selectedItem = (PasswordItem)e.ClickedItem;
             Frame.Navigate(typeof(detail));
-        }
-
-        private void SearchItem(object sender, RoutedEventArgs e)
-        {
-            CleanItem();
-            var statement = DB.Query("SELECT Id FROM PasswordItem WHERE Title LIKE ? OR urlstr LIKE ?");
-            if (statement.Count == 0) return;
-            foreach (PasswordItem i in statement)
-            {
-                ViewModel.AllItems.Add(i);
-            }
         }
 
         private void CleanItem()
@@ -94,22 +82,5 @@ namespace PasswordBox
                 }
             }
         }
-
-        //public async void Test()
-        //{
-        //    var items = DB.GetAllItems();
-        //    //items[0].Title = "1";
-        //    //DB.Delete(items[0]);
-        //    //if (Crypto.Decrypt(Crypto.Encrypt("123")) != "123" || !Crypto.TestEqual(Crypto.Hash("123"), "123"))
-        //    //{
-        //    //}
-        //    //byte[] res = await HttpAccess.GetIco("https://www.bilibili.com/");
-        //    //if (res != null)
-        //    //{
-        //    //    await ImageHelper.AsStorageFile(res, "test.jpg");
-        //    //    BitmapImage image = await ImageHelper.AsBitmapImage(res);
-        //    //}
-
-        //}
     }
 }

@@ -8,6 +8,7 @@ using PasswordBox;
 using Windows.UI.Xaml.Media.Imaging;
 using PasswordBox.Model;
 using Windows.UI.Xaml.Media;
+using PasswordBox.Common;
 
 namespace PasswordBox.ViewModel
 {
@@ -21,16 +22,12 @@ namespace PasswordBox.ViewModel
         public PWItemViewModel()
         {
             List<PasswordItem> itemList = DB.GetAllItems();
-            for (int i = 0;i < itemList.Count;i ++)
+            foreach (var item in itemList)
             {
-                this.allItems.Add(itemList.ElementAt(i));
+                item.Password = Crypto.Decrypt(item.Password);
+                allItems.Add(item);
             }
             this.selectedItem = null;
-            //测试用例
-            /*BitmapImage NewImage = new BitmapImage(new Uri("ms-appx:///Assets/cat.png", UriKind.Absolute));
-            this.allItems.Add(new PasswordItem("Title1", NewImage, "Url1", "Account1", "Password1"));
-            this.allItems.Add(new PasswordItem("Title2", NewImage, "Url2", "Account2", "Password2"));
-            this.allItems.Add(new PasswordItem("Title3", NewImage, "Url3", "Account3", "Password3"));*/
         }
 
         public void AddPasswordItem(string title, Byte[] img, string urlstr, string account, string password)
@@ -49,9 +46,9 @@ namespace PasswordBox.ViewModel
                 this.selectedItem.Urlstr = urlstr;
                 this.selectedItem.Account = account;
                 this.selectedItem.Password = password;
+                DB.Update(this.selectedItem);
                 this.selectedItem = null;
             }
-            DB.Update(this.selectedItem);
         }
 
         public void DeletePasswordItem()

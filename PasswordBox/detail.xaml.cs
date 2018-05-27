@@ -1,4 +1,5 @@
 ﻿using PasswordBox.Model;
+using PasswordBox.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,33 +39,19 @@ namespace PasswordBox
         /// <summary>
         /// load the detail of the clickitem
         /// </summary>
-        private async void LoadDetail()
+        private void LoadDetail()
         {
-            if (ViewModel.StaticModel.ViewModel.selectedItem == null)
+            title.Text = StaticModel.ViewModel.selectedItem.Title;
+            account.Text = StaticModel.ViewModel.selectedItem.Account;
+            website.Text = StaticModel.ViewModel.selectedItem.Urlstr;
+            password.Text = new String('*', StaticModel.ViewModel.selectedItem.Password.Length);
+            Binding binding = new Binding
             {
-                ContentDialog tip;
-                tip = new ContentDialog()
-                {
-                    Title = "提示",
-                    PrimaryButtonText = "确认",
-                    Content = "未选中事项",
-                    FullSizeDesired = false
-                };
-                tip.PrimaryButtonClick += (S, E) => {
-                    Frame.Navigate(typeof(Home));
-                };
-                await tip.ShowAsync();
-                return;
-            }
-            title.Text = ViewModel.StaticModel.ViewModel.selectedItem.Title;
-            account.Text = ViewModel.StaticModel.ViewModel.selectedItem.Account;
-            website.Text = ViewModel.StaticModel.ViewModel.selectedItem.Urlstr;
-            str = "";
-            for (int i = 0; i < ViewModel.StaticModel.ViewModel.selectedItem.Password.Length; i++)
-            {
-                str += '*';
-            }
-            password.Text = str;
+                Source = StaticModel.ViewModel.selectedItem,
+                Path = new PropertyPath("Img"),
+                Converter = new Common.ByteConverter()
+            };
+            image.SetBinding(Image.SourceProperty, binding);
         }
 
         /// <summary>
@@ -122,7 +109,7 @@ namespace PasswordBox
         private void CopyPassword(object sender, RoutedEventArgs e)
         {
             DataPackage dp = new DataPackage();
-            dp.SetText(ViewModel.StaticModel.ViewModel.selectedItem.Password);
+            dp.SetText(StaticModel.ViewModel.selectedItem.Password);
             Clipboard.SetContent(dp);
         }
 
@@ -130,7 +117,7 @@ namespace PasswordBox
         {
             if (ShowButton.Content.ToString() == "显示密码")
             {
-                password.Text = ViewModel.StaticModel.ViewModel.selectedItem.Password;
+                password.Text = StaticModel.ViewModel.selectedItem.Password;
                 ShowButton.Content = "隐藏密码";
             }
             else
@@ -142,8 +129,8 @@ namespace PasswordBox
 
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
-            ViewModel.StaticModel.ViewModel.DeletePasswordItem();
-            ViewModel.StaticModel.ViewModel.selectedItem = null;
+            StaticModel.ViewModel.DeletePasswordItem();
+            StaticModel.ViewModel.selectedItem = null;
             Frame.Navigate(typeof(Home));
         }
 
@@ -152,16 +139,16 @@ namespace PasswordBox
             DataTransferManager.ShowShareUI();
         }
 
-        async void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             DataRequest request = args.Request;
             DataRequestDeferral deferal = request.GetDeferral();
-            request.Data.Properties.Title = ViewModel.StaticModel.ViewModel.selectedItem.Title;
-            request.Data.Properties.Description = ViewModel.StaticModel.ViewModel.selectedItem.Account;
+            request.Data.Properties.Title = StaticModel.ViewModel.selectedItem.Title;
+            request.Data.Properties.Description = StaticModel.ViewModel.selectedItem.Account;
             
-            string content = "Website: " + ViewModel.StaticModel.ViewModel.selectedItem.Urlstr + '\n' +
-                             "Account: " + ViewModel.StaticModel.ViewModel.selectedItem.Account + '\n' +
-                             "Password: " + ViewModel.StaticModel.ViewModel.selectedItem.Password;
+            string content = "Website: " + StaticModel.ViewModel.selectedItem.Urlstr + '\n' +
+                             "Account: " + StaticModel.ViewModel.selectedItem.Account + '\n' +
+                             "Password: " + StaticModel.ViewModel.selectedItem.Password;
             request.Data.SetText(content);
             deferal.Complete();
         }

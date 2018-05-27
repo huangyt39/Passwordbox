@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
+﻿using PasswordBox.Common;
+using PasswordBox.Model;
+using PasswordBox.Services;
+using PasswordBox.ViewModel;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -29,7 +21,8 @@ namespace PasswordBox
             this.InitializeComponent();
         }
 
-        private byte[] ItemPic;
+        private PasswordItem item = new PasswordItem("", null, "", "", "");
+
         /// <summary>
         /// save as a new password item
         /// </summary>
@@ -37,11 +30,7 @@ namespace PasswordBox
         /// <param name="e"></param>
         private async void SaveContent(object sender, RoutedEventArgs e)
         {
-            var _title = title.Text;
-            var _website = website.Text;
-            var _account = account.Text;
-            var _password = password.Password;
-            if (_website != string.Empty && CheckWebsite(_website) == false)
+            if (item.Urlstr != string.Empty && CheckWebsite(item.Urlstr) == false)
             {
                 ContentDialog tip;
                 tip = new ContentDialog()
@@ -55,24 +44,13 @@ namespace PasswordBox
                 await tip.ShowAsync();
                 return;
             }
-            if (_website != string.Empty && Services.HttpAccess.GetIco(_website) != null)
+            if (StaticModel.ViewModel.selectedItem == null)
             {
-                ItemPic = await Services.HttpAccess.GetIco(_website);
+                StaticModel.ViewModel.AddPasswordItem(item.Title, item.Img, item.Urlstr, item.Account, item.Password);
             }
             else
             {
-                BitmapImage bitmap = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
-                img.Source = bitmap;
-                var photoFile = await StorageFile.GetFileFromApplicationUriAsync(bitmap.UriSource);
-                ItemPic = await Common.ImageHelper.AsByteArray(photoFile);
-            }
-            if (ViewModel.StaticModel.ViewModel.selectedItem == null)
-            {
-                ViewModel.StaticModel.ViewModel.AddPasswordItem(_title, ItemPic, _website, _account, _password);
-            }
-            else
-            {
-                ViewModel.StaticModel.ViewModel.UpdatePasswordItem(_title, ItemPic, _website, _account, _password);
+                StaticModel.ViewModel.UpdatePasswordItem(item.Title, item.Img, item.Urlstr, item.Account, item.Password);
             }
             Frame.Navigate(typeof(Home));
         }
@@ -84,7 +62,7 @@ namespace PasswordBox
         /// <returns></returns>
         private bool CheckWebsite(string website)
         {
-            return Services.HttpAccess.CheckURL(website);
+            return HttpAccess.CheckURL(website);
         }
 
         /// <summary>
@@ -94,7 +72,7 @@ namespace PasswordBox
         /// <param name="e"></param>
         private void GeneratePassword(object sender, RoutedEventArgs e)
         {
-            password.Password = GetRandomString(16);
+            password.Password = GetRandomString(10);
         }
 
         /// <summary>
@@ -122,23 +100,35 @@ namespace PasswordBox
             {
                 LoadSelectedItem();
             }
+            else
+            {
+                StaticModel.ViewModel.selectedItem = null;
+            }
         }
 
         private void LoadSelectedItem()
         {
-            title.Text = ViewModel.StaticModel.ViewModel.selectedItem.Title;
-            website.Text = ViewModel.StaticModel.ViewModel.selectedItem.Urlstr;
-            account.Text = ViewModel.StaticModel.ViewModel.selectedItem.Account;
-            password.Password = ViewModel.StaticModel.ViewModel.selectedItem.Password;
-            ItemPic = ViewModel.StaticModel.ViewModel.selectedItem.Img;
+            item.Title = StaticModel.ViewModel.selectedItem.Title;
+            item.Urlstr = StaticModel.ViewModel.selectedItem.Urlstr;
+            item.Account = StaticModel.ViewModel.selectedItem.Account;
+            item.Password = StaticModel.ViewModel.selectedItem.Password;
+            item.Img = StaticModel.ViewModel.selectedItem.Img;
         }
 
         private async void SelectPicture(object sender, RoutedEventArgs e)
         {
-            var p = await Common.ImageHelper.Picker();
+            var p = await ImageHelper.Picker();
             if (p != null)
             {
-                ItemPic = p; // 无效，待修改
+                item.Img = p;
+            }
+        }
+
+        private async void Website_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (HttpAccess.CheckURL(website.Text))
+            {
+                item.Img = await HttpAccess.GetIco(website.Text) ?? ImageHelper.DefaultImg;
             }
         }
     }

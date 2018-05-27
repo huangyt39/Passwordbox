@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using PasswordBox.Common;
+using PasswordBox.Model;
+using PasswordBox.Services;
+using PasswordBox.ViewModel;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -27,38 +21,31 @@ namespace PasswordBox
         {
             this.InitializeComponent();
         }
-        /// <summary>
-        /// save the picture for the head portrait
-        /// </summary>
-        private byte[] picSelect;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            LoadUserInformation();
-        }
+        PersonalInfo Info = new PersonalInfo();
 
-        /// <summary>
-        /// Load user's information
-        /// </summary>
-        private async void LoadUserInformation()
-        {
-            username.Text = Services.UserInfo.CheckIfExist("UserName") == true ? Services.UserInfo.GetInfo("UserName") : "";
-            question.Text = Services.UserInfo.CheckIfExist("Question") == true ? Services.UserInfo.GetInfo("Question") : "";
-            answer.Text = Services.UserInfo.CheckIfExist("Answer") == true ? Services.UserInfo.GetInfo("Answer") : "";
-            if (Services.UserInfo.GetImage("Head") != null)
-            {
-                picSelect = await Services.UserInfo.GetImage("Head");
-            }
-            else
-            {
-                UserHead.Source = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/cat.png") };
-            }
-        }
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    base.OnNavigatedTo(e);
+        //}
+
+        ///// <summary>
+        ///// Load user's information
+        ///// </summary>
+        //private async void LoadUserInformation()
+        //{
+        //    username.Text = UserInfo.CheckIfExist("UserName") ? UserInfo.GetInfo("UserName") : "";
+        //    question.Text = UserInfo.CheckIfExist("Question") ? UserInfo.GetInfo("Question") : "";
+        //    answer.Text = UserInfo.CheckIfExist("Answer") ? UserInfo.GetInfo("Answer") : "";
+        //    if (UserInfo.GetImage("Head") != null)
+        //    {
+        //       StaticModel.avator = await UserInfo.GetImage("Head");
+        //    }
+        //    else
+        //    {
+        //        StaticModel.avator = await ImageHelper.GetDefaultPixels();
+        //    }
+        //}
 
         /// <summary>
         /// 用户设置个人信息
@@ -77,27 +64,21 @@ namespace PasswordBox
                 FullSizeDesired = false
             };
             dialog.PrimaryButtonClick += (_s, _e) => {
-                Services.UserInfo.SaveImage(picSelect, "Head");
-                Services.UserInfo.SetInfo("UserName", username.Text);
-                Services.UserInfo.SetInfo("Question", question.Text);
-                Services.UserInfo.SetInfo("Answer", answer.Text);
+                UserInfo.SetInfo("UserName", Info.Name);
+                UserInfo.SetInfo("Question", Info.Question);
+                UserInfo.SetInfo("Answer", Info.Answer);
+                UserInfo.SaveImage(Info.Avator, "Avator.jpg");
             };
-            dialog.SecondaryButtonClick += async (_s, _e) =>
-            {
-                username.Text = Services.UserInfo.GetInfo("UserName");
-                question.Text = Services.UserInfo.GetInfo("Question");
-                answer.Text = Services.UserInfo.GetInfo("Answer");
-                picSelect = await Services.UserInfo.GetImage("Head");
-            };
+            dialog.SecondaryButtonClick += (_s, _e) => {};
             await dialog.ShowAsync();
         }
 
         private async void SelectPicture(object sender, RoutedEventArgs e)
         {
-            var p = await Common.ImageHelper.Picker();
+            var p = await ImageHelper.Picker();
             if (p != null)
             {
-                picSelect = p; //无效,待修改
+                Info.Avator = p;
             }
         }
     }

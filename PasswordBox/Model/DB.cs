@@ -1,4 +1,5 @@
-﻿using SQLite.Net;
+﻿using PasswordBox.Common;
+using SQLite.Net;
 using SQLite.Net.Platform.WinRT;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,12 @@ namespace PasswordBox.Model
 
         public static void Add(PasswordItem item)
         {
+            item.Password = Crypto.Encrypt(item.Password);
             using (var conn = Conn)
             {
                 conn.Insert(item);
             }
+            item.Password = Crypto.Decrypt(item.Password);
         }
 
         public static void Delete(PasswordItem item)
@@ -41,10 +44,12 @@ namespace PasswordBox.Model
 
         public static void Update(PasswordItem item)
         {
+            item.Password = Crypto.Encrypt(item.Password);
             using (var conn = Conn)
             {
                 conn.Update(item);
             }
+            item.Password = Crypto.Decrypt(item.Password);
         }
 
         public static List<PasswordItem> Query(string qs)

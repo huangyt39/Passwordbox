@@ -61,6 +61,10 @@ namespace PasswordBox.Services
         /// <param name="value"></param>
         public static void SetInfo(string key, string value)
         {
+            if (key == "LoginPassword")
+            {
+                value = Crypto.Hash(value);
+            }
             Settings.Values[key] = value;
         }
 
