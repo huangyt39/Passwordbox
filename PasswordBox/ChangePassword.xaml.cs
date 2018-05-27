@@ -94,12 +94,15 @@ namespace PasswordBox
                 Services.UserInfo.SetInfo("Answer", answer.Text);
                 Services.UserInfo.SetInfo("LoginPassword", new_password.Password);
                 dialog.Content = "修改成功";
+                dialog.PrimaryButtonClick += (_s, _e) =>
+                {
+                    MainPage.Current.ShowMenu();
+                    Frame.Navigate(typeof(Home));
+                };
+                await dialog.ShowAsync();
+                return;
             }
-            dialog.PrimaryButtonClick += (_s, _e) => 
-            {
-                MainPage.Current.ShowMenu();
-                Frame.Navigate(typeof(Home));
-            };
+            dialog.PrimaryButtonClick += (_s, _e) => {};
             await dialog.ShowAsync();
         }
 

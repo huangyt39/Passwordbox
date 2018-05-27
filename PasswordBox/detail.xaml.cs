@@ -33,9 +33,7 @@ namespace PasswordBox
         {
             this.InitializeComponent();
         }
-
-        private string str;
-
+        
         /// <summary>
         /// load the detail of the clickitem
         /// </summary>
@@ -122,7 +120,7 @@ namespace PasswordBox
             }
             else
             {
-                password.Text = str;
+                password.Text = new String('*', StaticModel.ViewModel.selectedItem.Password.Length);
                 ShowButton.Content = "显示密码";
             }
         }
