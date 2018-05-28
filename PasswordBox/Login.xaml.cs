@@ -50,8 +50,8 @@ namespace PasswordBox
             if (Crypto.TestEqual(Info.Password, checkPassword.Password))
             {
                 App.loginFlag = true;
-                Frame.Navigate(typeof(Home));
-                MainPage.Current.ShowMenu();
+                Frame.Navigate(typeof(MainPage));
+                //MainPage.Current.ShowMenu();
             }
             // check the password fail
             else
