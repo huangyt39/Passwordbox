@@ -42,9 +42,9 @@ namespace PasswordBox.ViewModel
         /// <param name="urlstr"></param>
         /// <param name="account"></param>
         /// <param name="password"></param>
-        public void AddPasswordItem(int id, string title, Byte[] img, string urlstr, string account, string password)
+        public void AddPasswordItem(string title, Byte[] img, string urlstr, string account, string password)
         {
-            PasswordItem newItem = new PasswordItem(id, title, img, urlstr, account, password);
+            PasswordItem newItem = new PasswordItem(title, img, urlstr, account, password);
             this.allItems.Add(newItem);
             DB.Add(newItem);
         }
