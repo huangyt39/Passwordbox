@@ -34,7 +34,7 @@
                         <RelativePanel Height="90" Width="90">
                             <Image x:Name="image" Source="{x:Bind Img, Mode=OneWay, Converter={StaticResource ByteConverter}}" Height="30" Width="30" Margin="30"/>
                         </RelativePanel>
-                        <TextBlock Text="{x:Bind Title, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" Padding="10, 0, 0, 0" FontStretch="SemiExpanded"/>
+                        <TextBlock Text="{x:Bind Title, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontStretch="SemiExpanded"/>
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
