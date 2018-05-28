@@ -84,7 +84,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <!--汉堡菜单开关-->
-        <RelativePanel Name="HamburgerBox" Height="NaN">
+        <RelativePanel Name="HamburgerBox">
             <Button Name="PaneOpenButton" 
                 FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Foreground="White" 
                 Background="{Binding BackgroundColor}" 
