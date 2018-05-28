@@ -35,7 +35,7 @@ namespace PasswordBox
             LiveTile.LoadTile();
         }
 
-        PersonalInfo Info => StaticModel.Info;
+        PersonalInfo Info = new PersonalInfo();
 
         /// <summary>
         /// 检验密码是否正确

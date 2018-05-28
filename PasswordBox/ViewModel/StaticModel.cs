@@ -10,7 +10,5 @@ namespace PasswordBox.ViewModel
     public class StaticModel
     {
         public static PWItemViewModel ViewModel = new PWItemViewModel();
-
-        public static PersonalInfo Info = new PersonalInfo();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PasswordBox.Common;
+using PasswordBox.Model;
 using PasswordBox.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,13 @@ namespace PasswordBox
             SetOrChange();
         }
 
+        PersonalInfo Info = new PersonalInfo();
+
         public void SetOrChange()
         {
             // Change Password
             // have logined 
-            if (StaticModel.Info.Password != "" && App.loginFlag)
+            if (Info.Password != "" && App.loginFlag)
             {
                 RememberPW.Visibility = Visibility.Visible;
                 ForgetPW.Visibility = Visibility.Collapsed;
@@ -117,7 +120,7 @@ namespace PasswordBox
                 FullSizeDesired = false,
             };
             // check the old password
-            if (!Crypto.TestEqual(StaticModel.Info.Password, oldPassword.Password))
+            if (!Crypto.TestEqual(Info.Password, oldPassword.Password))
             {
                 dialog.Content = "原密码错误";
             }
