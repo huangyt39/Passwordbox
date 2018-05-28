@@ -24,29 +24,6 @@ namespace PasswordBox
 
         PersonalInfo Info = new PersonalInfo();
 
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
-        //{
-        //    base.OnNavigatedTo(e);
-        //}
-
-        ///// <summary>
-        ///// Load user's information
-        ///// </summary>
-        //private async void LoadUserInformation()
-        //{
-        //    username.Text = UserInfo.CheckIfExist("UserName") ? UserInfo.GetInfo("UserName") : "";
-        //    question.Text = UserInfo.CheckIfExist("Question") ? UserInfo.GetInfo("Question") : "";
-        //    answer.Text = UserInfo.CheckIfExist("Answer") ? UserInfo.GetInfo("Answer") : "";
-        //    if (UserInfo.GetImage("Head") != null)
-        //    {
-        //       StaticModel.avator = await UserInfo.GetImage("Head");
-        //    }
-        //    else
-        //    {
-        //        StaticModel.avator = await ImageHelper.GetDefaultPixels();
-        //    }
-        //}
-
         /// <summary>
         /// 用户设置个人信息
         /// </summary>
