@@ -24,6 +24,10 @@ namespace PasswordBox.Model
             }
         }
 
+        /// <summary>
+        /// 添加到数据库
+        /// </summary>
+        /// <param name="item"></param>
         public static void Add(PasswordItem item)
         {
             item.Password = Crypto.Encrypt(item.Password);
@@ -34,6 +38,10 @@ namespace PasswordBox.Model
             item.Password = Crypto.Decrypt(item.Password);
         }
 
+        /// <summary>
+        /// 删除某个item
+        /// </summary>
+        /// <param name="item"></param>
         public static void Delete(PasswordItem item)
         {
             using (var conn = Conn)
@@ -42,6 +50,10 @@ namespace PasswordBox.Model
             }
         }
 
+        /// <summary>
+        /// 更新某个item
+        /// </summary>
+        /// <param name="item"></param>
         public static void Update(PasswordItem item)
         {
             item.Password = Crypto.Encrypt(item.Password);
@@ -52,16 +64,10 @@ namespace PasswordBox.Model
             item.Password = Crypto.Decrypt(item.Password);
         }
 
-        public static List<PasswordItem> Query(string qs)
-        {
-            List<PasswordItem> items;
-            using (var conn = Conn)
-            {
-                items = conn.Table<PasswordItem>().Where(v => (v.Title.Contains(qs) || v.Urlstr.Contains(qs))).ToList();
-            }
-            return items;
-        }
-
+        /// <summary>
+        /// 得到所有item，用于初始化ViewModel
+        /// </summary>
+        /// <returns></returns>
         public static List<PasswordItem> GetAllItems()
         {
             List<PasswordItem> items;
