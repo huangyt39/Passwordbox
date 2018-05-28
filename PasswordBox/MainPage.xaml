@@ -58,7 +58,7 @@
     </Page.Resources>
     
 
-        <Grid Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState >
@@ -84,49 +84,47 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <!--汉堡菜单开关-->
-        <RelativePanel Name="HamburgerBox" Height="NaN">
-            <Button Name="PaneOpenButton" 
-                FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Foreground="White" 
-                Background="{Binding BackgroundColor}" 
-                Width="48" Height="48" 
-                VerticalAlignment="Top" Canvas.ZIndex="100" />
-            <ScrollViewer VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Stretch">
-                <SplitView Name="RootSplitView" 
+        <Button Name="PaneOpenButton" 
+            FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Foreground="White" 
+            Background="{Binding BackgroundColor}" 
+            Width="48" Height="48" 
+            VerticalAlignment="Top" Canvas.ZIndex="100" />
+        <ScrollViewer VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Stretch">
+            <SplitView Name="RootSplitView" 
                        DisplayMode="CompactOverlay" 
                        CompactPaneLength="48" OpenPaneLength="200" 
                        IsPaneOpen="false">
 
-                    <SplitView.Pane>
-                        <Grid Name="menuGrid" Background="#CC000000">
-                            <Grid.RowDefinitions>
-                                <!--空出Button的高度-->
-                                <RowDefinition Height="48" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <!--一级菜单-->
-                            <ListView Name="NavMenuPrimaryListView" 
+                <SplitView.Pane>
+                    <Grid Name="menuGrid" Background="#CC000000">
+                        <Grid.RowDefinitions>
+                            <!--空出Button的高度-->
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!--一级菜单-->
+                        <ListView Name="NavMenuPrimaryListView" 
                                   Grid.Row="1" VerticalAlignment="Top" 
                                   SelectionMode="None" IsItemClickEnabled="True" 
                                   ItemTemplate="{StaticResource DataTemplate}" 
                                   ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"/>
-                            <!--二级菜单-->
-                            <ListView Name="NavMenuSecondaryListView" 
+                        <!--二级菜单-->
+                        <ListView Name="NavMenuSecondaryListView" 
                                   Grid.Row="2" VerticalAlignment="Bottom" 
                                   SelectionMode="None" IsItemClickEnabled="True" 
                                   ItemTemplate="{StaticResource DataTemplate}" 
                                   ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}" 
                                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0,1,0,0" />
-                        </Grid>
-                    </SplitView.Pane>
+                    </Grid>
+                </SplitView.Pane>
 
-                    <SplitView.Content>
-                        <Frame Name="RootFrame" x:FieldModifier="Public"/>
-                    </SplitView.Content>
+                <SplitView.Content>
+                    <Frame Name="RootFrame" x:FieldModifier="Public"/>
+                </SplitView.Content>
 
-                </SplitView>
-            </ScrollViewer>
-        </RelativePanel>
+            </SplitView>
+        </ScrollViewer>
         <RelativePanel Name="BottomButtons" VerticalAlignment="Bottom" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <RelativePanel Height="50" Visibility="Collapsed" x:Name="RelativeNavigation" RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="LightGray">
                 <Button x:Name="ButtonHome"  Height="50" Width="125" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;" RelativePanel.AlignLeftWithPanel="True" Click="NavigateToHome"/>

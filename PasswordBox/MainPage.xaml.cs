@@ -49,23 +49,17 @@ namespace PasswordBox
             NavMenuPrimaryListView.ItemClick += NavMenuListView_ItemClick;
             NavMenuSecondaryListView.ItemClick += NavMenuListView_ItemClick;
             // 默认页
-            if (Services.UserInfo.CheckIfExist("LoginPassword"))
-            {
-                RootFrame.Navigate(typeof(Login));
-            }
-            else
-            {
-                RootFrame.Navigate(typeof(ChangePassword));
-            }
+            RootFrame.Navigate(typeof(Home));
             //隐藏汉堡菜单,要显示则把length改为48并把button设为visible
             /*RootSplitView.CompactPaneLength = 0;
             PaneOpenButton.Visibility = Visibility.Collapsed;
             BottomButtons.Visibility = Visibility.Collapsed;*/
-            HideMenu();
+            //HideMenu();
             // 动态磁贴
             LiveTile.LoadTile();
         }
 
+        /*
         public void HideMenu()
         {
             RootSplitView.CompactPaneLength = 0;
@@ -87,6 +81,7 @@ namespace PasswordBox
                 PaneOpenButton.Visibility = Visibility.Visible;
             }
         }
+        */
 
         private void NavMenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -129,6 +124,11 @@ namespace PasswordBox
         private void NavigateToChangePassword(object sender, RoutedEventArgs e)
         {
             RootFrame.Navigate(typeof(ChangePassword));
+        }
+        
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            RootFrame.Navigate(typeof(Home));
         }
     }
 }

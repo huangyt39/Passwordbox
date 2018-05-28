@@ -96,8 +96,8 @@ namespace PasswordBox
                 dialog.Content = "修改成功";
                 dialog.PrimaryButtonClick += (_s, _e) =>
                 {
-                    MainPage.Current.ShowMenu();
-                    Frame.Navigate(typeof(Home));
+                    //MainPage.Current.ShowMenu();
+                    Frame.Navigate(typeof(Login));
                 };
                 await dialog.ShowAsync();
                 return;
