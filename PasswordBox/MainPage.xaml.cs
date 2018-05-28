@@ -81,6 +81,8 @@ namespace PasswordBox
             }
             else
             {
+                BottomButtons.Visibility = Visibility.Visible;
+                RelativeNavigation.Visibility = Visibility.Collapsed;
                 RootSplitView.CompactPaneLength = 48;
                 PaneOpenButton.Visibility = Visibility.Visible;
             }
@@ -111,22 +113,22 @@ namespace PasswordBox
 
         private void NavigateToHome(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Home));
+            RootFrame.Navigate(typeof(Home));
         }
 
         private void NavigateToAdd(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(NewOrUpdate));
+            RootFrame.Navigate(typeof(NewOrUpdate));
         }
 
         private void NavigateToPersonalInfo(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PersonalMessage));
+            RootFrame.Navigate(typeof(PersonalMessage));
         }
 
         private void NavigateToChangePassword(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ChangePassword));
+            RootFrame.Navigate(typeof(ChangePassword));
         }
     }
 }
