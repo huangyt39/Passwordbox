@@ -117,12 +117,12 @@ namespace PasswordBox
                 FullSizeDesired = false,
             };
             // check the old password
-            if (Crypto.TestEqual(StaticModel.Info.Password, new_password.Password))
+            if (!Crypto.TestEqual(StaticModel.Info.Password, oldPassword.Password))
             {
                 dialog.Content = "原密码错误";
             }
             // check the confirm password
-            else if (new_password.Password != confirm_password.Password)
+            else if (newPassword.Password != confirmPassword.Password)
             {
                 dialog.Content = "两次密码不一致";
             }
