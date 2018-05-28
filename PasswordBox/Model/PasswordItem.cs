@@ -22,6 +22,9 @@ namespace PasswordBox.Model
         private string account;
         private string password;
 
+        /// <summary>
+        /// password的存取和修改
+        /// </summary>
         public string Password
         {
             get
@@ -38,6 +41,9 @@ namespace PasswordBox.Model
             }
         }
 
+        /// <summary>
+        /// account的存取和修改
+        /// </summary>
         public string Account
         {
             get
@@ -54,6 +60,9 @@ namespace PasswordBox.Model
             }
         }
 
+        /// <summary>
+        /// url的存取和修改
+        /// </summary>
         public string Urlstr
         {
             get
@@ -92,6 +101,9 @@ namespace PasswordBox.Model
             }
         }
 
+        /// <summary>
+        /// title的存取和修改
+        /// </summary>
         public string Title
         {
             get
@@ -108,6 +120,10 @@ namespace PasswordBox.Model
                 }
             }
         }
+
+        /// <summary>
+        /// img的存取和修改
+        /// </summary>
         public byte[] Img
         {
             get
@@ -130,8 +146,17 @@ namespace PasswordBox.Model
         /// </summary>
         public PasswordItem() { }
 
-        public PasswordItem(string _title, byte[] _img, string _urlstr, string _account, string _password)
+        /// <summary>
+        /// PasswordItem的构造函数
+        /// </summary>
+        /// <param name="_title"></param>
+        /// <param name="_img"></param>
+        /// <param name="_urlstr"></param>
+        /// <param name="_account"></param>
+        /// <param name="_password"></param>
+        public PasswordItem(int _id, string _title, byte[] _img, string _urlstr, string _account, string _password)
         {
+            this.Id = _id;
             this.Img = _img ?? ImageHelper.DefaultImg;
             this.Title = _title;
             this.urlstr = _urlstr;
@@ -141,6 +166,10 @@ namespace PasswordBox.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 用于发出属性值修改的通知
+        /// </summary>
+        /// <param name="propertyName"></param>
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

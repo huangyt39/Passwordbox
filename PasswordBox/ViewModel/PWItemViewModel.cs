@@ -19,6 +19,10 @@ namespace PasswordBox.ViewModel
 
         public PasswordItem selectedItem;
 
+        /// <summary>
+        /// PWItemViewModel的构造函数
+        /// 从数据库中加载数据
+        /// </summary>
         public PWItemViewModel()
         {
             List<PasswordItem> itemList = DB.GetAllItems();
@@ -30,13 +34,29 @@ namespace PasswordBox.ViewModel
             this.selectedItem = null;
         }
 
-        public void AddPasswordItem(string title, Byte[] img, string urlstr, string account, string password)
+        /// <summary>
+        /// 添加新的PasswordItem
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="img"></param>
+        /// <param name="urlstr"></param>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        public void AddPasswordItem(int id, string title, Byte[] img, string urlstr, string account, string password)
         {
-            PasswordItem newItem = new PasswordItem(title, img, urlstr, account, password);
+            PasswordItem newItem = new PasswordItem(id, title, img, urlstr, account, password);
             this.allItems.Add(newItem);
             DB.Add(newItem);
         }
 
+        /// <summary>
+        /// 更新PasswordItem
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="img"></param>
+        /// <param name="urlstr"></param>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
         public void UpdatePasswordItem(string title, Byte[] img, string urlstr, string account, string password)
         {
             if (this.selectedItem != null)
@@ -51,6 +71,9 @@ namespace PasswordBox.ViewModel
             }
         }
 
+        /// <summary>
+        /// 删除PasswordItem
+        /// </summary>
         public void DeletePasswordItem()
         {
             if(this.selectedItem != null)

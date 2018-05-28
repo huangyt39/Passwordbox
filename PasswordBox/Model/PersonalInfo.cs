@@ -18,6 +18,9 @@ namespace PasswordBox.Model
         private string answer;
         private string password;
 
+        /// <summary>
+        /// avator的存取和修改
+        /// </summary>
         public byte[] Avator
         {
             get => avator;
@@ -30,6 +33,9 @@ namespace PasswordBox.Model
                 }
             }
         }
+        /// <summary>
+        /// name的存取和修改
+        /// </summary>
         public string Name
         {
             get => name; set
@@ -41,6 +47,9 @@ namespace PasswordBox.Model
                 }
             }
         }
+        /// <summary>
+        /// question的存取和修改
+        /// </summary>
         public string Question
         {
             get => question; set
@@ -52,6 +61,9 @@ namespace PasswordBox.Model
                 }
             }
         }
+        /// <summary>
+        /// answer的存取和修改
+        /// </summary>
         public string Answer
         {
             get => answer; set
@@ -63,6 +75,9 @@ namespace PasswordBox.Model
                 }
             }
         }
+        /// <summary>
+        /// password的存取和修改
+        /// </summary>
         public string Password
         {
             get => password; set
@@ -74,7 +89,9 @@ namespace PasswordBox.Model
                 }
             }
         }
-
+        /// <summary>
+        /// PersonalInfo的构造函数
+        /// </summary>
         public PersonalInfo()
         {
             name = UserInfo.CheckIfExist("UserName") ? UserInfo.GetInfo("UserName") : "";
@@ -91,6 +108,10 @@ namespace PasswordBox.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 用于发出属性值修改的通知
+        /// </summary>
+        /// <param name="propertyName"></param>
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
