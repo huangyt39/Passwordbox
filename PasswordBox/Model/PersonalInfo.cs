@@ -12,10 +12,15 @@ namespace PasswordBox.Model
 {
     public class PersonalInfo : INotifyPropertyChanged
     {
+        // 头像
         private byte[] avator;
+        // 昵称
         private string name;
+        // 安全问题
         private string question;
+        // 答案
         private string answer;
+        // 密码
         private string password;
 
         /// <summary>
@@ -101,6 +106,9 @@ namespace PasswordBox.Model
             SetAvator();
         }
 
+        /// <summary>
+        /// 设置用户头像
+        /// </summary>
         public async void SetAvator()
         {
             Avator = await UserInfo.GetImage("Avator.jpg") ?? ImageHelper.DefaultImg;
