@@ -64,7 +64,7 @@ namespace PasswordBox
                 /// 确认个人信息无不合法填写时
                 /// 提示用户是否保存修改信息
                 /// 点击"确认"保存，点击"取消"不保存
-                dialog.Content = "确定要修改信息?";
+                dialog.Content = "确定修改信息?";
                 dialog.SecondaryButtonText = "取消";
                 dialog.PrimaryButtonClick += (_s, _e) => {
                     UserInfo.SetInfo("UserName", Info.Name);
