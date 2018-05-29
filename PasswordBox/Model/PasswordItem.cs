@@ -154,9 +154,8 @@ namespace PasswordBox.Model
         /// <param name="_urlstr"></param>
         /// <param name="_account"></param>
         /// <param name="_password"></param>
-        public PasswordItem(int _id, string _title, byte[] _img, string _urlstr, string _account, string _password)
+        public PasswordItem(string _title, byte[] _img, string _urlstr, string _account, string _password)
         {
-            this.Id = _id;
             this.Img = _img ?? ImageHelper.DefaultImg;
             this.Title = _title;
             this.urlstr = _urlstr;

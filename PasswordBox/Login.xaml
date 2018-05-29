@@ -11,7 +11,10 @@
     <UserControl.Resources>
         <c:ByteConverter x:Key="ByteConverter"/>
     </UserControl.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/bg.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="100" />

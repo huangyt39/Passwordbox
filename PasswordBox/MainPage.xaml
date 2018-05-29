@@ -58,7 +58,10 @@
     </Page.Resources>
     
 
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/bg.jpg"/>
+        </Grid.Background>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
