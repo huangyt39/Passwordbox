@@ -43,7 +43,7 @@ namespace PasswordBox
                 Content = "确定要修改信息?",
                 FullSizeDesired = false
             };
-            if (Info.Question == "")
+            if (Info.Birth == "")
             {
                 /// 判断安全问题是否为空
                 /// 为空则弹窗提示
@@ -51,7 +51,7 @@ namespace PasswordBox
                 dialog.Content = "安全问题不能为空";
                 dialog.PrimaryButtonClick += (_s, _e) => { };
             }
-            else if (Info.Answer == "")
+            else if (Info.Email == "")
             {
                 /// 判断答案是否为空
                 /// 为空则弹窗提示
@@ -68,8 +68,8 @@ namespace PasswordBox
                 dialog.SecondaryButtonText = "取消";
                 dialog.PrimaryButtonClick += (_s, _e) => {
                     UserInfo.SetInfo("UserName", Info.Name);
-                    UserInfo.SetInfo("Question", Info.Question);
-                    UserInfo.SetInfo("Answer", Info.Answer);
+                    UserInfo.SetInfo("Birth", Info.Birth);
+                    UserInfo.SetInfo("Email", Info.Email);
                     UserInfo.SaveImage(Info.Avator, "Avator.jpg");
                 };
                 dialog.SecondaryButtonClick += (_s, _e) => { };
