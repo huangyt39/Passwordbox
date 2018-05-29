@@ -29,7 +29,7 @@
             <TextBox Name="searchBox" Height="30" Width="200" KeyUp="SearchItem" PlaceholderText="Search"/>
         </StackPanel>
         <GridView Grid.Row="3" IsItemClickEnabled="True" 
-              ItemsSource ="{x:Bind ViewModel.AllItems}"  AutomationProperties.IsRequiredForForm="True"
+              ItemsSource ="{x:Bind temp}"  AutomationProperties.IsRequiredForForm="True"
               ItemClick="ItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType = "me:PasswordItem">

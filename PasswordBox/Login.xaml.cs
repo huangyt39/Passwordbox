@@ -31,7 +31,6 @@ namespace PasswordBox
         public Login()
         {
             this.InitializeComponent();
-            LiveTile.LoadTile();
         }
 
         PersonalInfo Info = new PersonalInfo();

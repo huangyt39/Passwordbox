@@ -49,7 +49,7 @@ namespace PasswordBox
                 RememberPW.Visibility = Visibility.Collapsed;
                 ForgetPW.Visibility = Visibility.Visible;
                 question.IsEnabled = false;
-                question.Text = Services.UserInfo.GetInfo("Birth");
+                question.Text = Services.UserInfo.GetInfo("Question");
             }
             // Set Password
             // first use
@@ -71,7 +71,7 @@ namespace PasswordBox
                 PrimaryButtonText = "确认",
                 FullSizeDesired = false,
             };
-            if (!Services.UserInfo.CheckIfExist("Birth") && question.Text == string.Empty)
+            if (!Services.UserInfo.CheckIfExist("Question") && question.Text == string.Empty)
             {
                 dialog.Content = "安全问题不能为空";
             }
@@ -79,7 +79,7 @@ namespace PasswordBox
             {
                 dialog.Content = "答案不能为空";
             }
-            else if (Services.UserInfo.CheckIfExist("Birth") && Services.UserInfo.GetInfo("Email") != answer.Text)
+            else if (Services.UserInfo.CheckIfExist("Question") && Services.UserInfo.GetInfo("Answer") != answer.Text)
             {
                 dialog.Content = "答案错误";
             }
@@ -93,8 +93,8 @@ namespace PasswordBox
             }
             else
             {
-                Services.UserInfo.SetInfo("Birth", question.Text);
-                Services.UserInfo.SetInfo("Email", answer.Text);
+                Services.UserInfo.SetInfo("Question", question.Text);
+                Services.UserInfo.SetInfo("Answer", answer.Text);
                 Services.UserInfo.SetInfo("LoginPassword", new_password.Password);
                 dialog.Content = "修改成功";
                 dialog.PrimaryButtonClick += (_s, _e) =>

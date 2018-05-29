@@ -35,14 +35,13 @@ namespace PasswordBox
         public PWItemViewModel ViewModel => StaticModel.ViewModel;
 
         /// <summary>
-        /// temp of allitems
+        /// view of allitems
         /// </summary>
         private ObservableCollection<PasswordItem> temp = new ObservableCollection<PasswordItem>(StaticModel.ViewModel.AllItems);
 
         public Home()
         {
             this.InitializeComponent();
-            LiveTile.LoadTile();
         }
 
         /// <summary>
@@ -67,23 +66,23 @@ namespace PasswordBox
             if (searchBox.Text == string.Empty)
             {
                 // clear viewmodel
-                ViewModel.AllItems.Clear();
+                temp.Clear();
                 // show all items
-                foreach (PasswordItem i in temp)
+                foreach (PasswordItem i in ViewModel.AllItems)
                 {
-                    ViewModel.AllItems.Add(i);
+                    temp.Add(i);
                 }
                 return;
             }
             if (e.Key == Windows.System.VirtualKey.Enter) {
-                ViewModel.AllItems.Clear();
+                temp.Clear();
                 string search_str = searchBox.Text;
                 // search for the match items
-                foreach (PasswordItem i in temp)
+                foreach (PasswordItem i in ViewModel.AllItems)
                 {
                     if (i.Title.Contains(search_str) || i.Urlstr.Contains(search_str) || i.Account.Contains(search_str))
                     {
-                        ViewModel.AllItems.Add(i);
+                        temp.Add(i);
                     }
                 }
             }
