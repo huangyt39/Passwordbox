@@ -68,14 +68,13 @@ namespace PasswordBox
             {
                 // 创建item后,跳转到home页面
                 StaticModel.ViewModel.AddPasswordItem(item.Title, item.Img, item.Urlstr, item.Account, item.Password);
-                Frame.Navigate(typeof(Home));
             }
             else
             {
                 // 修改item后,跳转到detail页面
                 StaticModel.ViewModel.UpdatePasswordItem(item.Title, item.Img, item.Urlstr, item.Account, item.Password);
-                Frame.Navigate(typeof(detail));
             }
+            Frame.Navigate(typeof(Home));
         }
 
         /// <summary>
@@ -129,11 +128,6 @@ namespace PasswordBox
             {
                 /// 修改item时将selectitem各项数据显示到页面上
                 LoadSelectedItem();
-            }
-            else
-            {
-                /// 新建item时将selectitem置为null,防止意外操作
-                StaticModel.ViewModel.selectedItem = null;
             }
         }
 

@@ -87,6 +87,10 @@ namespace PasswordBox
             {
                 dialog.Content = "新密码不能为空";
             }
+            else if (confirm_password.Password == string.Empty)
+            {
+                dialog.Content = "请再次输入新密码确认";
+            }
             else if (new_password.Password != confirm_password.Password)
             {
                 dialog.Content = "两次密码不一致";
@@ -118,8 +122,20 @@ namespace PasswordBox
                 PrimaryButtonText = "确认",
                 FullSizeDesired = false,
             };
+            if (oldPassword.Password == string.Empty)
+            {
+                dialog.Content = "原密码不能为空";
+            }
+            else if (newPassword.Password == string.Empty)
+            {
+                dialog.Content = "新密码不能为空";
+            }
+            else if (confirmPassword.Password == string.Empty)
+            {
+                dialog.Content = "请再次输入新密码确认";
+            }
             // check the old password
-            if (!Crypto.TestEqual(Info.Password, oldPassword.Password))
+            else if (!Crypto.TestEqual(Info.Password, oldPassword.Password))
             {
                 dialog.Content = "原密码错误";
             }
