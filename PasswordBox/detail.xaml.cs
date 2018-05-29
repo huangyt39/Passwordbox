@@ -108,6 +108,11 @@ namespace PasswordBox
             Clipboard.SetContent(dp);
         }
 
+        /// <summary>
+        /// 显示/隐藏密码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword(object sender, RoutedEventArgs e)
         {
             if (ShowButton.Content.ToString() == "显示密码")
@@ -122,6 +127,11 @@ namespace PasswordBox
             }
         }
 
+        /// <summary>
+        /// 删除item,同时从数据库和viewmodel中删除,回到home页面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
             StaticModel.ViewModel.DeletePasswordItem();
@@ -129,11 +139,22 @@ namespace PasswordBox
             Frame.Navigate(typeof(Home));
         }
 
+        /// <summary>
+        /// 分享选中的item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShareItem(object sender, RoutedEventArgs e)
         {
+            /// 调用分享接口
             DataTransferManager.ShowShareUI();
         }
 
+        /// <summary>
+        /// 分享网址、账号、密码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             DataRequest request = args.Request;
@@ -148,6 +169,10 @@ namespace PasswordBox
             deferal.Complete();
         }
 
+        /// <summary>
+        /// 添加分享事件
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -155,12 +180,23 @@ namespace PasswordBox
             LoadDetail();
         }
 
+
+        /// <summary>
+        /// 移除分享事件
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
             DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
         }
 
+        /// <summary>
+        /// 转到修改页面的同时传递参数
+        /// 参数的目的是让接受页面知道是要修改item还是创建item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TurnToChangePage(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(NewOrUpdate), 1);

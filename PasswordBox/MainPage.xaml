@@ -15,9 +15,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Rectangle Fill="{ThemeResource SystemControlBackgroundAccentBrush}" 
+               <!-- <Rectangle Fill="{ThemeResource SystemControlBackgroundAccentBrush}" 
                            Visibility="{Binding Selected, Mode=TwoWay}" 
-                           HorizontalAlignment="Left" Width="5" Height="48" />
+                           HorizontalAlignment="Left" Width="5" Height="48" /> -->
 
                 <FontIcon FontFamily="{Binding FontFamily}" Glyph="{Binding Icon}" Foreground="White" 
                           VerticalAlignment="Center" 

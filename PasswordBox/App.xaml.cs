@@ -50,6 +50,8 @@ namespace PasswordBox
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
+            await ImageHelper.GetDefaultPixels();
+
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
             if (rootFrame == null)
@@ -88,7 +90,6 @@ namespace PasswordBox
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
-            await ImageHelper.GetDefaultPixels();
         }
 
         /// <summary>
