@@ -56,6 +56,11 @@ namespace PasswordBox
             Frame.Navigate(typeof(detail));
         }
 
+        /// <summary>
+        /// 搜索名称、账号或网址含有搜索字段的已存item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchItem(object sender, KeyRoutedEventArgs e)
         {
             // the text of the search is empty

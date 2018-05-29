@@ -21,6 +21,9 @@ namespace PasswordBox
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// 用于绑定页面上的显示内容
+        /// </summary>
         private PasswordItem item = new PasswordItem("", null, "", "", "");
 
         /// <summary>
@@ -41,7 +44,7 @@ namespace PasswordBox
             tip.PrimaryButtonClick += (S, E) => {};
             if (item.Title == string.Empty)
             {
-                tip.Content = "标题不能为空";
+                tip.Content = "名称不能为空";
             }
             else if (item.Account == string.Empty)
             {
@@ -53,6 +56,7 @@ namespace PasswordBox
             }
             else if (item.Urlstr != string.Empty && CheckWebsite(item.Urlstr) == false)
             {
+                // 只有已填写网址时检查是否错误, 网址为空不提示错误
                 tip.Content = "网址格式错误";
             }
             if (tip.Content.ToString() != string.Empty)
@@ -62,13 +66,16 @@ namespace PasswordBox
             }
             if (StaticModel.ViewModel.selectedItem == null)
             {
+                // 创建item后,跳转到home页面
                 StaticModel.ViewModel.AddPasswordItem(item.Title, item.Img, item.Urlstr, item.Account, item.Password);
+                Frame.Navigate(typeof(Home));
             }
             else
             {
+                // 修改item后,跳转到detail页面
                 StaticModel.ViewModel.UpdatePasswordItem(item.Title, item.Img, item.Urlstr, item.Account, item.Password);
+                Frame.Navigate(typeof(detail));
             }
-            Frame.Navigate(typeof(Home));
         }
 
         /// <summary>
@@ -88,6 +95,7 @@ namespace PasswordBox
         /// <param name="e"></param>
         private void GeneratePassword(object sender, RoutedEventArgs e)
         {
+            /// 指定生成10位随机密码
             password.Password = GetRandomString(10);
         }
 
@@ -109,19 +117,29 @@ namespace PasswordBox
             return new string(id);
         }
 
+        /// <summary>
+        /// 转入该页面时调用
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            /// 根据传递的参数可判断是新建item或是修改item
             if (e.Parameter != null)
             {
+                /// 修改item时将selectitem各项数据显示到页面上
                 LoadSelectedItem();
             }
             else
             {
+                /// 新建item时将selectitem置为null,防止意外操作
                 StaticModel.ViewModel.selectedItem = null;
             }
         }
 
+        /// <summary>
+        /// 用于将选中的item的内容显示到页面的函数
+        /// </summary>
         private void LoadSelectedItem()
         {
             item.Title = StaticModel.ViewModel.selectedItem.Title;
@@ -131,20 +149,47 @@ namespace PasswordBox
             item.Img = StaticModel.ViewModel.selectedItem.Img;
         }
 
+        /// <summary>
+        /// 选择item图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SelectPicture(object sender, RoutedEventArgs e)
         {
+            /// 调用图片选择接口
             var p = await ImageHelper.Picker();
+            /// 判断是否选择了图片,不为空时再对显示内容进行修改
+            /// 避免选择图片接口返回的值为空时(即未选择图片时),直接赋值给显示内容造成异常
             if (p != null)
             {
                 item.Img = p;
             }
         }
 
-        private async void Website_LostFocus(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 点击网址框右侧按钮时调用
+        /// 根据输入的网址自动添加对应网址图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void GetWebsitePicture(object sender, RoutedEventArgs e)
         {
             if (HttpAccess.CheckURL(website.Text))
             {
                 item.Img = await HttpAccess.GetIco(website.Text) ?? ImageHelper.DefaultImg;
+            }
+        }
+
+        /// <summary>
+        /// 填写密码项之后按enter键保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Enter_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                SaveContent(null, null);
             }
         }
     }

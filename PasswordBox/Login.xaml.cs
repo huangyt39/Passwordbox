@@ -31,7 +31,6 @@ namespace PasswordBox
         public Login()
         {
             this.InitializeComponent();
-            ShowHideButton();
             LiveTile.LoadTile();
         }
 
@@ -81,20 +80,10 @@ namespace PasswordBox
         }
 
         /// <summary>
-        /// decide the forgetButton hide or show
+        /// 按enter键登录
         /// </summary>
-        private void ShowHideButton()
-        {
-            if (Services.UserInfo.CheckIfExist("LoginPassword") == false)
-            {
-                forgetButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                forgetButton.Visibility = Visibility.Visible;
-            }
-        }
-
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckPassword_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)

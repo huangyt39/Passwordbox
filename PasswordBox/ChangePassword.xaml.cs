@@ -99,7 +99,6 @@ namespace PasswordBox
                 dialog.Content = "修改成功";
                 dialog.PrimaryButtonClick += (_s, _e) =>
                 {
-                    //MainPage.Current.ShowMenu();
                     Frame.Navigate(typeof(Login));
                 };
                 await dialog.ShowAsync();
@@ -138,5 +137,26 @@ namespace PasswordBox
             await dialog.ShowAsync();
         }
 
+        /// <summary>
+        /// 填写最后一项之后按下enter键登录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Enter_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                // 忘记密码时
+                if (App.loginFlag == false)
+                {
+                    SetPassword(null, null);
+                }
+                // 主动修改时
+                else if (App.loginFlag == true)
+                {
+                    SwitchPassword(null, null);
+                }
+            }
+        }
     }
 }
