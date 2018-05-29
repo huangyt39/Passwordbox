@@ -16,10 +16,10 @@ namespace PasswordBox.Model
         private byte[] avator;
         // 昵称
         private string name;
-        // 安全问题
-        private string question;
-        // 答案
-        private string answer;
+        // 生日
+        private string birth;
+        // 邮箱
+        private string email;
         // 密码
         private string password;
 
@@ -53,30 +53,30 @@ namespace PasswordBox.Model
             }
         }
         /// <summary>
-        /// question的存取和修改
+        /// birth的存取和修改
         /// </summary>
-        public string Question
+        public string Birth
         {
-            get => question; set
+            get => birth; set
             {
-                if (value != this.question)
+                if (value != this.birth)
                 {
-                    this.question = value;
-                    NotifyPropertyChanged("Question");
+                    this.birth = value;
+                    NotifyPropertyChanged("Birth");
                 }
             }
         }
         /// <summary>
-        /// answer的存取和修改
+        /// email的存取和修改
         /// </summary>
-        public string Answer
+        public string Email
         {
-            get => answer; set
+            get => email; set
             {
-                if (value != this.answer)
+                if (value != this.email)
                 {
-                    this.answer = value;
-                    NotifyPropertyChanged("Answer");
+                    this.email = value;
+                    NotifyPropertyChanged("Email");
                 }
             }
         }
@@ -100,8 +100,8 @@ namespace PasswordBox.Model
         public PersonalInfo()
         {
             name = UserInfo.CheckIfExist("UserName") ? UserInfo.GetInfo("UserName") : "";
-            question = UserInfo.CheckIfExist("Question") ? UserInfo.GetInfo("Question") : "";
-            answer = UserInfo.CheckIfExist("Answer") ? UserInfo.GetInfo("Answer") : "";
+            birth = UserInfo.CheckIfExist("Birth") ? UserInfo.GetInfo("Birth") : new DateTimeOffset(new DateTime(2000, 1, 1)).ToString();
+            email = UserInfo.CheckIfExist("Email") ? UserInfo.GetInfo("Email") : "";
             password = UserInfo.CheckIfExist("LoginPassword") ? UserInfo.GetInfo("LoginPassword") : "";
             SetAvator();
         }

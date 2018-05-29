@@ -36,4 +36,22 @@ namespace PasswordBox.Common
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// string to DateTimeOffset
+    /// </summary>
+    public class DateConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null || !(value is string))
+                return new DateTimeOffset(new DateTime(2000, 1, 1));
+            return DateTimeOffset.Parse((string)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return ((DateTimeOffset)value).ToString();
+        }
+    }
 }
