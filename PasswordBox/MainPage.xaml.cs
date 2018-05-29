@@ -97,7 +97,7 @@ namespace PasswordBox
 
             NavMenuItem item = e.ClickedItem as NavMenuItem;
             // Rectangle显示并导航
-            item.Selected = Visibility.Visible;
+            item.Selected = Visibility.Collapsed;
             if (item.DestPage != null)
             {
                 RootFrame.Navigate(item.DestPage);

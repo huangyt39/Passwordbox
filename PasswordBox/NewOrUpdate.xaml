@@ -21,13 +21,13 @@
         <RelativePanel BorderThickness="0,0,0,1" BorderBrush="Black" Height="40" Width="435" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Image Source="Assets/new.png" Height="40"/>
         </RelativePanel>
-        <StackPanel Grid.Row="2" Width="320" Height="450" BorderBrush="DimGray" BorderThickness="2,2,2,2" >
+        <StackPanel Grid.Row="2" Width="330" Height="450" BorderBrush="DimGray" BorderThickness="2,2,2,2" >
             <Canvas Height="40" Background="Gray">
-                <TextBlock Height="40" Text="NEW" Margin="10,5,0,0" FontSize="20" />
+                <TextBlock Height="40" FontFamily="Segoe MDL2 Assets" Text="&#xE8EC;" Margin="10,5,0,0" FontSize="28" />
             </Canvas>
             <Image Name="img" Source="{x:Bind item.Img, Mode=OneWay, Converter={StaticResource ByteConverter}}" Height="100" Width="100" Margin="0,20,0,0"/>
             <AppBarButton Icon="Pictures" Height="40" Width="30" HorizontalAlignment="Right" Margin="0,0,80,0" Click="SelectPicture"></AppBarButton>
-            <Grid Width="300" Height="160" Margin="0,10,0,0">
+            <Grid Width="333" Height="160" Margin="0,10,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
                     <RowDefinition Height="40" />
@@ -38,6 +38,7 @@
                     <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="42" />
                 </Grid.ColumnDefinitions>
 				<TextBlock Grid.Column="0" Grid.Row="0"  Height="30" FontSize="17" Text="名称：" HorizontalAlignment="Right" />
 				<TextBlock Grid.Column="0" Grid.Row="1"  Height="30" FontSize="17" Text="网址(可选)：" HorizontalAlignment="Right"/>
@@ -47,6 +48,7 @@
 				<TextBox Name="website" Grid.Column="2" Grid.Row="1" Height="30" Width="180" TextWrapping="Wrap" Text="{x:Bind item.Urlstr, Mode=TwoWay}" LostFocus="Website_LostFocus"/>
 				<TextBox Name="account" Grid.Column="2" Grid.Row="2" Height="30" Width="180" TextWrapping="Wrap" Text="{x:Bind item.Account, Mode=TwoWay}"/>
 				<PasswordBox Name="password" Grid.Column="2" Grid.Row="3" Height="30" Width="180" Password="{x:Bind item.Password, Mode=TwoWay}"/>
+                <Button  Grid.Column="3" Grid.Row="1" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE774;" Background="White" HorizontalContentAlignment="Left"  Height="32"  Width="40" />
             </Grid>
             <RelativePanel Margin="0,20,0,0">
                 <Button Height="36" Width="120" Name="Save" Background="gray"  Content="保存" Margin="180,0,0,0" Click="SaveContent"/>
