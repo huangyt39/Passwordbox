@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush Stretch="Fill" ImageSource="Assets/bg.jpg"/>
+			<ImageBrush Stretch="UniformToFill" ImageSource="Assets/bg.png"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />

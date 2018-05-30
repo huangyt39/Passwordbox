@@ -105,7 +105,7 @@ namespace PasswordBox
             }
             else
             {
-                bg.ImageSource = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/bg.jpg") };
+                bg.ImageSource = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/bg.png") };
             }
         }
 

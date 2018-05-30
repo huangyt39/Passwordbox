@@ -9,7 +9,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush Stretch="Fill" ImageSource="Assets/bg.jpg"/>
+			<ImageBrush Stretch="UniformToFill" ImageSource="Assets/bg.png"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -62,10 +62,10 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="120" />
                 </Grid.ColumnDefinitions>
-                <Button Height="36" Grid.Row="2" Grid.Column="0" Width="120" Background="gray"  Content="删除" Margin="20,0,0,0" Click="DeleteItem"/>
-                <Button Name="ShowButton" Grid.Column="2" Height="36" Width="120" Background="gray"  Content="显示密码"  Click="ShowPassword"/>
-                <Button Height="36"  Grid.Column="0" Width="120" Name="share" Background="gray"  Content="分享" Margin="20,0,0,0" Click="ShareItem"/>
-                <Button Height="36" Grid.Row="2" Grid.Column="2" Width="120" Name="update" Background="gray"  Content="修改" Margin="0,0,0,0" Click="TurnToChangePage"/>
+                <Button Height="36" Grid.Row="2" Grid.Column="0" Width="120" Content="删除" Margin="20,0,0,0" Click="DeleteItem"/>
+                <Button Name="ShowButton" Grid.Column="2" Height="36" Width="120"  Content="显示密码"  Click="ShowPassword"/>
+                <Button Height="36"  Grid.Column="0" Width="120" Name="share" Content="分享" Margin="20,0,0,0" Click="ShareItem"/>
+                <Button Height="36" Grid.Row="2" Grid.Column="2" Width="120" Name="update" Content="修改" Margin="0,0,0,0" Click="TurnToChangePage"/>
             </Grid>
             
         </StackPanel>

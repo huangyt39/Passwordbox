@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush x:Name="bg" Stretch="Fill" ImageSource="Assets/bg.jpg"/>
+			<ImageBrush x:Name="bg" Stretch="UniformToFill" ImageSource="Assets/bg.png"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -41,8 +41,8 @@
                 <PasswordBox Name="checkPassword" Height="30" Width="200" KeyDown="CheckPassword_KeyDown"/>
             </StackPanel>
             <RelativePanel Margin="0,20,0,0">
-                <Button Height="36" Width="100" Background="gray"  Content="登录" Margin="170,0,0,0" Click="CheckPassword"/>
-                <Button Name="forgetButton" Height="36" Width="100" Background="gray" Content="忘记密码" Margin="20,0,0,0" Click="ForgetPassword"/>
+                <Button Height="36" Width="100" Content="登录" Margin="170,0,0,0" Click="CheckPassword"/>
+                <Button Name="forgetButton" Height="36" Width="100" Content="忘记密码" Margin="20,0,0,0" Click="ForgetPassword"/>
             </RelativePanel>
         </StackPanel>
        
