@@ -71,6 +71,7 @@ namespace PasswordBox
                     UserInfo.SetInfo("Birth", Info.Birth);
                     UserInfo.SetInfo("Email", Info.Email);
                     UserInfo.SaveImage(Info.Avator, "Avator.jpg");
+                    LiveTile.LoadTile();
                 };
                 dialog.SecondaryButtonClick += (_s, _e) => { };
             }
