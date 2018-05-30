@@ -62,18 +62,6 @@ namespace PasswordBox
         /// <param name="e"></param>
         private void SearchItem(object sender, KeyRoutedEventArgs e)
         {
-            // the text of the search is empty
-            if (searchBox.Text == string.Empty)
-            {
-                // clear viewmodel
-                temp.Clear();
-                // show all items
-                foreach (PasswordItem i in ViewModel.AllItems)
-                {
-                    temp.Add(i);
-                }
-                return;
-            }
             if (e.Key == Windows.System.VirtualKey.Enter) {
                 temp.Clear();
                 string search_str = searchBox.Text;
@@ -85,6 +73,27 @@ namespace PasswordBox
                         temp.Add(i);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// 清空搜索框
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchEnd(object sender, TextChangedEventArgs e)
+        {
+            // the text of the search is empty
+            if (searchBox.Text == string.Empty)
+            {
+                // clear viewmodel
+                temp.Clear();
+                // show all items
+                foreach (PasswordItem i in ViewModel.AllItems)
+                {
+                    temp.Add(i);
+                }
+                return;
             }
         }
     }

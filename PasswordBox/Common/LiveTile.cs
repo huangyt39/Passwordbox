@@ -27,7 +27,7 @@ namespace PasswordBox.Common
                 textElement = textElements[i] as XmlElement;
                 if (UserInfo.CheckIfExist("UserName"))
                 {
-                    textElement.SetAttribute("content", UserInfo.GetInfo("UserName"));
+                    textElement.InnerText = UserInfo.GetInfo("UserName");
                 }
             }
 

@@ -57,6 +57,7 @@ namespace PasswordBox
             {
                 RememberPW.Visibility = Visibility.Collapsed;
                 ForgetPW.Visibility = Visibility.Visible;
+                backButton.Visibility = Visibility.Collapsed;
                 question.IsEnabled = true;
             }
         }
@@ -173,6 +174,11 @@ namespace PasswordBox
                     SwitchPassword(null, null);
                 }
             }
+        }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Login));
         }
     }
 }

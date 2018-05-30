@@ -21,7 +21,7 @@ namespace PasswordBox.Common
         public static string DefaultImageUri
         {
             get;
-        } = "ms-appx:///Assets/cat.png";
+        } = "ms-appx:///Assets/passwordIcon.png";
 
         static public byte[] DefaultImg { get; private set; }
 

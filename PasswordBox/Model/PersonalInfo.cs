@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace PasswordBox.Model
 {
@@ -111,7 +112,12 @@ namespace PasswordBox.Model
         /// </summary>
         public async void SetAvator()
         {
-            Avator = await UserInfo.GetImage("Avator.jpg") ?? ImageHelper.DefaultImg;
+            Avator = await UserInfo.GetImage("Avator.jpg");
+            if (Avator == null)
+            {
+                StorageFile img = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Avator.png"));
+                Avator = await ImageHelper.AsByteArray(img);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
