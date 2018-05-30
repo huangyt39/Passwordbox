@@ -148,6 +148,7 @@ namespace PasswordBox
             else
             {
                 Services.UserInfo.SetInfo("LoginPassword", newPassword.Password);
+                Info.Password = newPassword.Password;
                 dialog.Content = "修改成功";
             }
             dialog.PrimaryButtonClick += (_s, _e) => { };

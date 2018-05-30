@@ -161,10 +161,9 @@ namespace PasswordBox
             DataRequestDeferral deferal = request.GetDeferral();
             request.Data.Properties.Title = StaticModel.ViewModel.selectedItem.Title;
             request.Data.Properties.Description = StaticModel.ViewModel.selectedItem.Account;
-            
+
             string content = "Website: " + StaticModel.ViewModel.selectedItem.Urlstr + '\n' +
-                             "Account: " + StaticModel.ViewModel.selectedItem.Account + '\n' +
-                             "Password: " + StaticModel.ViewModel.selectedItem.Password;
+                             "Account: " + StaticModel.ViewModel.selectedItem.Account + '\n';
             request.Data.SetText(content);
             deferal.Complete();
         }
