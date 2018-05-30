@@ -18,6 +18,7 @@ using Windows.Storage;
 using PasswordBox.ViewModel;
 using PasswordBox.Model;
 using PasswordBox.Common;
+using PasswordBox.Services;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -89,6 +90,32 @@ namespace PasswordBox
             {
                 CheckPassword(null, null);
             }
+        }
+
+        /// <summary>
+        /// 进入登录页面时检查生日
+        /// 彩蛋
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (UserInfo.GetInfo("Birth") != null && CheckBirth())
+            {
+                bg.ImageSource = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/birth.png") };
+            }
+            else
+            {
+                bg.ImageSource = new BitmapImage { UriSource = new Uri("ms-appx:///Assets/bg.jpg") };
+            }
+        }
+
+        /// <summary>
+        /// 检查今天是否为用户生日
+        /// </summary>
+        private bool CheckBirth()
+        {
+            return DateTimeOffset.Now.Month == Convert.ToDateTime(UserInfo.GetInfo("Birth")).Date.Month &&
+                DateTimeOffset.Now.Day == Convert.ToDateTime(UserInfo.GetInfo("Birth")).Date.Day;
         }
     }
 }

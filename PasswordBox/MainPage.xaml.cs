@@ -50,38 +50,7 @@ namespace PasswordBox
             NavMenuSecondaryListView.ItemClick += NavMenuListView_ItemClick;
             // 默认页
             RootFrame.Navigate(typeof(Home));
-            //隐藏汉堡菜单,要显示则把length改为48并把button设为visible
-            /*RootSplitView.CompactPaneLength = 0;
-            PaneOpenButton.Visibility = Visibility.Collapsed;
-            BottomButtons.Visibility = Visibility.Collapsed;*/
-            //HideMenu();
-            // 动态磁贴
-            LiveTile.LoadTile();
         }
-
-        /*
-        public void HideMenu()
-        {
-            RootSplitView.CompactPaneLength = 0;
-            PaneOpenButton.Visibility = Visibility.Collapsed;
-            BottomButtons.Visibility = Visibility.Collapsed;
-        }
-
-        public void ShowMenu()
-        {
-            if (Window.Current.Bounds.Width <= 500)
-            {
-                BottomButtons.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                BottomButtons.Visibility = Visibility.Visible;
-                RelativeNavigation.Visibility = Visibility.Collapsed;
-                RootSplitView.CompactPaneLength = 48;
-                PaneOpenButton.Visibility = Visibility.Visible;
-            }
-        }
-        */
 
         private void NavMenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -106,6 +75,11 @@ namespace PasswordBox
             RootSplitView.IsPaneOpen = false;
         }
 
+        /// <summary>
+        /// 汉堡菜单各按钮对应跳转页面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NavigateToHome(object sender, RoutedEventArgs e)
         {
             RootFrame.Navigate(typeof(Home));

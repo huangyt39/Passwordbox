@@ -3,6 +3,7 @@ using PasswordBox.Model;
 using PasswordBox.Services;
 using PasswordBox.ViewModel;
 using System;
+using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -43,20 +44,10 @@ namespace PasswordBox
                 Content = "确定要修改信息?",
                 FullSizeDesired = false
             };
-            if (Info.Birth == "")
+            if (Info.Email != "" && CheckEmail(Info.Email) == false)
             {
-                /// 判断安全问题是否为空
-                /// 为空则弹窗提示
-                /// 点击确认继续编辑
-                dialog.Content = "安全问题不能为空";
-                dialog.PrimaryButtonClick += (_s, _e) => { };
-            }
-            else if (Info.Email == "")
-            {
-                /// 判断答案是否为空
-                /// 为空则弹窗提示
-                /// 点击确认继续编辑
-                dialog.Content = "答案不能为空";
+                /// 判断答案是否不为空格式且格式错误
+                dialog.Content = "邮箱格式错误";
                 dialog.PrimaryButtonClick += (_s, _e) => { };
             }
             else
@@ -71,6 +62,7 @@ namespace PasswordBox
                     UserInfo.SetInfo("Birth", Info.Birth);
                     UserInfo.SetInfo("Email", Info.Email);
                     UserInfo.SaveImage(Info.Avator, "Avator.jpg");
+                    LiveTile.LoadTile();
                 };
                 dialog.SecondaryButtonClick += (_s, _e) => { };
             }
@@ -93,6 +85,17 @@ namespace PasswordBox
             {
                 Info.Avator = p;
             }
+        }
+
+        /// <summary>
+        /// 检查邮箱格式是否合法
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckEmail(string email)
+        {
+            string emailReg = @"^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$";
+            Regex reg = new Regex(emailReg);
+            return reg.IsMatch(email);
         }
     }
 }

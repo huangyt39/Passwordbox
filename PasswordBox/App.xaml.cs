@@ -34,10 +34,13 @@ namespace PasswordBox
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             loginFlag = false;
+            // 加载动态磁贴
+            LiveTile.LoadTile();
         }
 
         /// <summary>
-        /// login flag
+        /// login flag 
+        /// check if has logined this time
         /// </summary>
         static public bool loginFlag = false;
         

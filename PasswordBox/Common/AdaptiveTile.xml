@@ -9,7 +9,7 @@
       <image src="Assets\cat.png" placement="background"/>
       <group>
         <subgroup>
-          <text hint-align="bottom" hint-style="body">用户名</text>
+          <text hint-align="top" hint-style="body">用户名</text>
         </subgroup>
       </group>
     </binding>
@@ -18,7 +18,7 @@
       <image src="Assets\cat.png" placement="background"/>
       <group>
         <subgroup>
-          <text hint-align="center" hint-style="body">用户名</text>
+          <text hint-align="top" hint-style="body">用户名</text>
         </subgroup>
       </group>
     </binding>
