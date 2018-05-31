@@ -148,10 +148,13 @@ namespace PasswordBox
             else
             {
                 Services.UserInfo.SetInfo("LoginPassword", newPassword.Password);
-                Info.Password = newPassword.Password;
+                Info.Password = Services.UserInfo.GetInfo("LoginPassword");
                 dialog.Content = "修改成功";
+                dialog.PrimaryButtonClick += (_s, _e) => 
+                {
+                    Frame.Navigate(typeof(Home));
+                };
             }
-            dialog.PrimaryButtonClick += (_s, _e) => { };
             await dialog.ShowAsync();
         }
 
