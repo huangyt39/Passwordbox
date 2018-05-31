@@ -92,7 +92,6 @@
             Background="{Binding BackgroundColor}" 
             Width="48" Height="48" 
             VerticalAlignment="Top" Canvas.ZIndex="100" />
-        <ScrollViewer VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Stretch">
             <SplitView Name="RootSplitView" 
                        DisplayMode="CompactOverlay" 
                        CompactPaneLength="48" OpenPaneLength="200" 
@@ -123,11 +122,14 @@
                 </SplitView.Pane>
 
                 <SplitView.Content>
+                <ScrollViewer VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Stretch">
+
                     <Frame Name="RootFrame" x:FieldModifier="Public"/>
-                </SplitView.Content>
+                </ScrollViewer>
+
+            </SplitView.Content>
 
             </SplitView>
-        </ScrollViewer>
         <RelativePanel Name="BottomButtons" VerticalAlignment="Bottom" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <RelativePanel Height="50" Visibility="Collapsed" x:Name="RelativeNavigation" RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="LightGray">
                 <Button x:Name="ButtonHome"  Height="50" Width="125" FontSize="23" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;" RelativePanel.AlignLeftWithPanel="True" Click="NavigateToHome"/>
