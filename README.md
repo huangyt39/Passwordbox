@@ -17,6 +17,6 @@ Passwordbox是一个简洁易用的的密码管理app，它简单易用，功能
 ## 项目亮点
 自动生成密码、从网站上获取图标、密码加密和复制等。
 ## 项目展示
- ![此处输入图片的描述][4]
- ![此处输入图片的描述][5]
+![avatar](https://img3.doubanio.com/view/status/m/public/2312f11534ca54e.webp)
+![avatar](https://img1.doubanio.com/view/status/m/public/9276e61f56402a7.webp)
 
